@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
         backgroundColor: TEXT_INPUT,
         borderRadius: 5,
         justifyContent: 'center',
-        
     },
     input: {
         fontSize: 15,
         marginLeft: 45,
+        paddingVertical: 13,
     },
     icon: {
         width: 25,

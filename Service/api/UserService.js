@@ -1,15 +1,12 @@
 import axios from 'axios';
-
-
-const AUTH_BASE_REST_API_URL = 'https://my-json-server.typicode.com/typicode/demo/posts';
-
+import { BASE_REST_API_URL } from './Constants';
 
 class UserService {
     getAuth(_username, _password) {
         var request = axios({
-            method: 'get',
-            url: AUTH_BASE_REST_API_URL,
-            params: {
+            method: 'post',
+            url: BASE_REST_API_URL + '/users/auth',
+            data: {
                 username: _username,
                 password: _password
             }
