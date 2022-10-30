@@ -3,9 +3,10 @@ import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard
 import CustomAlert from '../../Component/Element/CustomAlert';
 import CustomButton from '../../Component/Element/CustomButton';
 import CustomInput from '../../Component/Element/CustomInput';
+import Connection from '../../Service/client/Connection';
+import IntroSlider from '../StartApp/IntroSlider';
 import Auth from './Auth';
 import { styles } from './LoginSceenStyle';
-
 const mailIcon = '../../assets/icon/mailIcon.jpg';
 const phoneIcon = '../../assets/icon/passwordIcon.jpg';
 const fbIcon = '../../assets/icon/2021_Facebook_icon.svg.jpg';
@@ -48,7 +49,9 @@ const LoginScreen = () => {
                         />
 
                         <View style={styles.backButton}>
-                            <TouchableOpacity onPress={() => alert('Return')}>
+                            <TouchableOpacity onPress={() => {
+                                alert(Connection.isNetworkAvailable())
+                            }}>
                                 <Image source={require(arow)} style={styles.arrowReturn} />
                             </TouchableOpacity>
                         </View>
@@ -78,7 +81,6 @@ const LoginScreen = () => {
                         <View style={styles.loginOption}>
                             <Image style={styles.oauth} source={require(fbIcon)} />
                             <Image style={styles.oauth} source={require(googleIcon)} />
-                            <Image style={styles.oauth} source={require(zaloIcon)} />
                         </View>
 
                         <View style={styles.footer}>

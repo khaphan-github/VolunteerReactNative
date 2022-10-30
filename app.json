@@ -1,13 +1,13 @@
 {
   "expo": {
     "name": "Việc tử tế",
-    "slug": "com.VolunteerReactNativeApps",
+    "slug": "viec-tu-te",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon/icon.png",
+    "icon": "./assets/icon/logo.jpg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon/Spl.png",
+      "image": "./assets/icon/Spl.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,18 +22,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon/icon.png",
+        "foregroundImage": "./assets/icon/logo.jpg",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.VolunteerReactNativeApps",
       "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
-      "favicon": "./assets/icon/favicon.png"
+      "favicon": "./assets/icon/logo.jpg"
     },
     "extra": {
       "eas": {
-        "projectId": "45332fdc-dbff-42e4-ac0a-c9c051125efa"
+        "projectId": "fbbaa2c1-afb6-49a6-bf88-0af0e0d2fc75"
       }
     }
   }

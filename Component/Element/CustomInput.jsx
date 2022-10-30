@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, TextInput, StyleSheet, Image } from 'react-native';
 import { TEXT_INPUT } from '../Constants/Color';
+import { COLOR, SIZES } from '../Constants/Theme';
 const CustomInput = ({value, placeholder, icon, secureTextEntry, onChangeText}) => {
     return(
         <View style={styles.container}>
@@ -22,13 +23,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         marginVertical: 10,
         height: 55,
-
-        backgroundColor: TEXT_INPUT,
+        backgroundColor: COLOR.LightGray,
         borderRadius: 5,
         justifyContent: 'center',
     },
     input: {
-        fontSize: 15,
+        fontSize: SIZES.h4,
         marginLeft: 45,
         paddingVertical: 13,
     },

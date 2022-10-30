@@ -1,15 +1,17 @@
 import {StyleSheet} from 'react-native';
-import { BUTTON_COLOR, TEXT_COLOR } from '../../Component/Constants/Color';
 import { FONT_FAMILY } from '../../Component/Constants/Font';
+import { COLOR, SIZES } from '../../Component/Constants/Theme';
 
 export const styles = StyleSheet.create({
     container: {
+        width: SIZES.width,
+        height: SIZES.height,
         flex:1,
         paddingHorizontal: 30,
         marginVertical: 20,
     },
     flForm :{
-        flex: 12,
+        flex: 10,
         justifyContent: 'flex-end',
     },
     flOption: {
@@ -27,7 +29,6 @@ export const styles = StyleSheet.create({
         width: 20,
         height: 20,
     },
-
     title: {
         paddingVertical: 20,
     },
@@ -38,12 +39,11 @@ export const styles = StyleSheet.create({
     },
     label : {
         marginVertical: 35,
-        fontSize: 15,
-        fontWeight: 'bold',
-        color: TEXT_COLOR,
+        fontSize: SIZES.h5,
+        color: COLOR.GrayText,
     },
     textDesc: {
-        color: TEXT_COLOR,
+        color: COLOR.GrayText,
         fontSize: 15,
         fontWeight: 'bold',
     },
@@ -63,12 +63,12 @@ export const styles = StyleSheet.create({
     },
 
     footerText: {
-        color: TEXT_COLOR,
+        color: COLOR.GrayText,
         fontSize: 15,
         paddingVertical: 6,
     },
     regis: {
-        color: BUTTON_COLOR,
+        color: COLOR.Red,
         fontWeight: 'bold',
     } 
 });
