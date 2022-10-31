@@ -1,12 +1,14 @@
+import { NavigationContainer } from '@react-navigation/native';
 import react from 'react';
 import {View} from 'react-native';
-import LoginScreen from './Screen/Login/LoginScreen.jsx';
-export default class App extends react.Component {
-  render() {
-    return(
-      <View>
-        <LoginScreen/>
-      </View>
-    )
-  }
+import { MainStackNavigator } from "./routes/homeStack";
+const App = () => {
+  return (
+    <NavigationContainer>
+      <MainStackNavigator />
+    </NavigationContainer>
+  );
 }
+
+export default App
+

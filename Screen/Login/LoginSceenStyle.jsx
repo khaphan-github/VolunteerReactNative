@@ -4,22 +4,40 @@ import { FONT_FAMILY } from '../../Component/Constants/Font';
 
 export const styles = StyleSheet.create({
     container: {
+        flex:1,
         paddingHorizontal: 30,
-        marginVertical: 0,
+        marginVertical: 20,
     },
-    form:{
-        paddingBottom: 30,
+    flForm :{
+        flex: 12,
+        justifyContent: 'flex-end',
+    },
+    flOption: {
+        marginTop: 15,
+        flex: 6,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        marginVertical: 15,
+    },
+    backButton: {
+        flex: 0.7,
+        flexDirection: 'row',
+    },
+    arrowReturn: {
+        width: 20,
+        height: 20,
     },
 
+    title: {
+        paddingVertical: 20,
+    },
     textHeader: {
-        marginTop: 140,
         fontSize: 40,
         fontFamily: FONT_FAMILY,
         fontWeight: 'bold'
     },
     label : {
         marginVertical: 35,
-        textAlign: 'center',
         fontSize: 15,
         fontWeight: 'bold',
         color: TEXT_COLOR,
@@ -32,7 +50,7 @@ export const styles = StyleSheet.create({
 
     loginOption: {
         flex:1,
-        flexWrap: 'wrap',  
+        flexDirection: 'row', 
         marginHorizontal: 45,
     },
     oauth: {
@@ -41,18 +59,16 @@ export const styles = StyleSheet.create({
         marginHorizontal: 15,
     },
     footer : {
-        marginTop: 130,
         alignItems: 'center',
-        justifyContent: 'center',   
     },
+
     footerText: {
         color: TEXT_COLOR,
         fontSize: 15,
         paddingVertical: 6,
-
     },
     regis: {
         color: BUTTON_COLOR,
         fontWeight: 'bold',
-    }
+    } 
 });
