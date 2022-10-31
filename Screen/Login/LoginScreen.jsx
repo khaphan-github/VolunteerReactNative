@@ -3,55 +3,54 @@ import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard
 import CustomAlert from '../../Component/Element/CustomAlert';
 import CustomButton from '../../Component/Element/CustomButton';
 import CustomInput from '../../Component/Element/CustomInput';
+import UserService from '../../Service/api/UserService';
+import AsyncStoraged from '../../Service/client/AsyncStoraged';
 
 import Auth from './Auth';
 import { styles } from './LoginSceenStyle';
 
-const mailIcon = '../../assets/icon/emailIcon.png';
-const phoneIcon = '../../assets/icon/passwordIcon.png';
+const mailIcon = '../../assets/icon/mailIcon.jpg';
+const phoneIcon = '../../assets/icon/passwordIcon.jpg';
 const fbIcon = '../../assets/icon/2021_Facebook_icon.svg.jpg';
 const googleIcon = '../../assets/icon/Google__G__Logo.svg.jpg';
 const zaloIcon = '../../assets/icon/zalo-seeklogo.jpg';
 const arow = '../../assets/icon/arrow-to-left.jpg';
 // rncs
-const LoginScreen = ({navigation}) => {
-
+const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [notification, setnotification] = useState('');
-    const [message, setMessage] = useState('');
     const [ButtonPress, setButtonPress] = useState('');
+    const authenticate = async () => {
+        console.log('Press');
 
-    const showMessage = (message) => {
-        setMessage(message);
-        setnotification(true);
-
-    }
-    const authenticate = () => {
         setButtonPress(true);
-        Auth.getAuth(username, password).then((res) => {
-            showMessage(res.status);
-            setButtonPress(false);
+        
+        await Auth.getAuth(username, password).then((res) => {
+            console.log('Token ' + res.data.token);
+            AsyncStoraged.storeData(res.data.token);
+            AsyncStoraged.getData().then((data) => {console.log('Store Token: ' + data)});
         }).catch(error => {
-            showMessage(error);            
+            console.error(error);
+        });
+            
+        await Auth.testToken().then((data) => {
+            console.log(data.status);
+            console.log(data.data);
+
+        }).catch(error => {
+            console.error(error);
         })
+        setButtonPress(false);
     };
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={styles.container}>
                     <View style={styles.flForm}>
-
-                        <CustomAlert 
-                            visible={notification} 
-                            mess={message} 
-                            onPress={() => setnotification(false)}
-                        />
-
                         <View style={styles.backButton}>
                             <TouchableOpacity onPress={() => {
-                                alert(Connection.isNetworkAvailable())
+                                navigation.navigate('IntroSlider');
                             }}>
                                 <Image source={require(arow)} style={styles.arrowReturn} />
                             </TouchableOpacity>
@@ -66,14 +65,16 @@ const LoginScreen = ({navigation}) => {
                         <CustomInput
                             onChangeText={usernameText => setUsername(usernameText)}
                             icon={require(mailIcon)}
-                            placeholder='Email hoặc số điện thoại' />
+                            placeholder='Email hoặc số điện thoại'
+                            />
 
                         <CustomInput
                             onChangeText={passwordText => setPassword(passwordText)}
                             icon={require(phoneIcon)}
                             placeholder='Mật khẩu'
-                            secureTextEntry={true} />
-                        <CustomButton onPress={authenticate} title='Đăng nhập' isLoading={ButtonPress} />
+                            secureTextEntry={true}
+                            />
+                        <CustomButton onPress={() => authenticate()} title='Đăng nhập' isLoading={ButtonPress} />
                     </View>
                     <View style={styles.flOption}>
 

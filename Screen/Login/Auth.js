@@ -20,7 +20,10 @@ class Auth {
     }; 
     getAuth = (username, password) => {  
         return UserService.getAuth(username, password);
+    };
+    testToken = () => {
+        return UserService.testToken();
     }
 };
 
-export default new Auth();
+export default new Auth(); 

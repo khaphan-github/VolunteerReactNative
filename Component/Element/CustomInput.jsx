@@ -11,7 +11,8 @@ const CustomInput = ({value, placeholder, icon, secureTextEntry, onChangeText}) 
                 onChangeText={onChangeText}
                 placeholder={placeholder}
                 style={styles.input}
-                secureTextEntry={secureTextEntry}/>
+                secureTextEntry={secureTextEntry}
+                />
                 
         </View>
     );

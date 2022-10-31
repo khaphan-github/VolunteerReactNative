@@ -7,8 +7,8 @@ import UserService from '../../Service/api/UserService';
 import { styles } from './SignupScreenStyle';
 
 const phonenumberIcon = '../../assets/icon/phonenumberIcon.png';
-const phoneIcon = '../../assets/icon/passwordIcon.png';
-const emailIcon = '../../assets/icon/emailIcon.png';
+const phoneIcon = '../../assets/icon/passwordIcon.jpg';
+const emailIcon = '../../assets/icon/mailIcon.jpg';
 const userIcon = '../../assets/icon/userIcon.png';
 
 

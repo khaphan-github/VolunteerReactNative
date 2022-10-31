@@ -1,15 +1,19 @@
-import { NavigationContainer } from '@react-navigation/native';
-import react from 'react';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
-import {View} from 'react-native';
 import { MainStackNavigator } from "./routes/homeStack";
 const App = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={CustomTheme}>
       <MainStackNavigator />
     </NavigationContainer>
   );
 };
 
+const CustomTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'white',
+  },
+}
 export default App;
-
