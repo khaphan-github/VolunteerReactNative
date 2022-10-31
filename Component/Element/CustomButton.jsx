@@ -1,15 +1,18 @@
 import React from 'react';
-import {Text, StyleSheet, Pressable } from 'react-native';
-const CustomButton = ({onPress, title}) => {
+import { Text, StyleSheet, Pressable, ActivityIndicator } from 'react-native';
+import { COLOR, SIZES } from '../Constants/Theme';
+const CustomButton = ({ onPress, title, isLoading }) => {
     return (
         <Pressable onPress={onPress} style={styles.container}>
-                <Text style={styles.title}>{title}</Text>
+            {isLoading ? 
+            <ActivityIndicator size='large' color='white' /> :
+            <Text style={styles.title}>{title}</Text>}
         </Pressable>
     )
 }
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FF493C',
+        backgroundColor: COLOR.Red,
         height: 55,
         borderRadius: 5,
         alignItems: 'center',
@@ -18,7 +21,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: 'white',
-        fontSize: 17,
+        fontSize: SIZES.h3,
         fontWeight: 'bold',
     }
 });

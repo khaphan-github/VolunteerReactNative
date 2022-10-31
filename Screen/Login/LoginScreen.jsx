@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard
 import CustomAlert from '../../Component/Element/CustomAlert';
 import CustomButton from '../../Component/Element/CustomButton';
 import CustomInput from '../../Component/Element/CustomInput';
+
 import Auth from './Auth';
 import { styles } from './LoginSceenStyle';
 
@@ -14,6 +15,7 @@ const zaloIcon = '../../assets/icon/zalo-seeklogo.jpg';
 const arow = '../../assets/icon/arrow-to-left.jpg';
 // rncs
 const LoginScreen = ({navigation}) => {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [notification, setnotification] = useState('');
@@ -47,11 +49,13 @@ const LoginScreen = ({navigation}) => {
                             onPress={() => setnotification(false)}
                         />
 
-                        { <View style={styles.backButton}>
-                            <TouchableOpacity onPress={() => alert('Return')}>
+                        <View style={styles.backButton}>
+                            <TouchableOpacity onPress={() => {
+                                alert(Connection.isNetworkAvailable())
+                            }}>
                                 <Image source={require(arow)} style={styles.arrowReturn} />
                             </TouchableOpacity>
-                        </View> }
+                        </View>
 
                         <View style={styles.title}>
 
@@ -78,7 +82,6 @@ const LoginScreen = ({navigation}) => {
                         <View style={styles.loginOption}>
                             <Image style={styles.oauth} source={require(fbIcon)} />
                             <Image style={styles.oauth} source={require(googleIcon)} />
-                            <Image style={styles.oauth} source={require(zaloIcon)} />
                         </View>
 
                         <View style={styles.footer}>
@@ -86,6 +89,7 @@ const LoginScreen = ({navigation}) => {
                             <Text style={styles.footerText}>
                                 Bạn chưa có tài khoản?
                                 <Text style={styles.regis} onPress={() => navigation.navigate("Signup")}> Đăng ký</Text>
+
                             </Text>
                         </View>
                     </View>
