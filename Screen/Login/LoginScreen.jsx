@@ -3,18 +3,19 @@ import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard
 import CustomAlert from '../../Component/Element/CustomAlert';
 import CustomButton from '../../Component/Element/CustomButton';
 import CustomInput from '../../Component/Element/CustomInput';
-import Connection from '../../Service/client/Connection';
-import IntroSlider from '../StartApp/IntroSlider';
+
 import Auth from './Auth';
 import { styles } from './LoginSceenStyle';
-const mailIcon = '../../assets/icon/mailIcon.jpg';
-const phoneIcon = '../../assets/icon/passwordIcon.jpg';
+
+const mailIcon = '../../assets/icon/emailIcon.png';
+const phoneIcon = '../../assets/icon/passwordIcon.png';
 const fbIcon = '../../assets/icon/2021_Facebook_icon.svg.jpg';
-const googleIcon = '../../assets/icon/Google__G__Logo.jpg';
+const googleIcon = '../../assets/icon/Google__G__Logo.svg.jpg';
 const zaloIcon = '../../assets/icon/zalo-seeklogo.jpg';
 const arow = '../../assets/icon/arrow-to-left.jpg';
 // rncs
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [notification, setnotification] = useState('');
@@ -87,7 +88,8 @@ const LoginScreen = () => {
                             <Text style={styles.footerText}>Quên mật khẩu?</Text>
                             <Text style={styles.footerText}>
                                 Bạn chưa có tài khoản?
-                                <Text style={styles.regis}> Đăng ký</Text>
+                                <Text style={styles.regis} onPress={() => navigation.navigate("Signup")}> Đăng ký</Text>
+
                             </Text>
                         </View>
                     </View>

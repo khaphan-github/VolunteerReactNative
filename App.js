@@ -1,17 +1,15 @@
+import { NavigationContainer } from '@react-navigation/native';
 import react from 'react';
-import {View} from  'react-native'
-import NoConnection from './Screen/Error/NoConnection';
-import LoginScreen from './Screen/Login/LoginScreen';
-import IntroSlider from './Screen/StartApp/IntroSlider';
-import Connection from './Service/client/Connection';
 
-// "expo-cli build:android -t apk"
+import {View} from 'react-native';
+import { MainStackNavigator } from "./routes/homeStack";
+const App = () => {
+  return (
+    <NavigationContainer>
+      <MainStackNavigator />
+    </NavigationContainer>
+  );
+};
 
-export default class App extends react.Component {
-  render() {
+export default App;
 
-    return (
-      <IntroSlider/>
-    );
-  }
-}
