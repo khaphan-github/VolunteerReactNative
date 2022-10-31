@@ -1,38 +1,56 @@
 import {StyleSheet} from 'react-native';
-import { BUTTON_COLOR, TEXT_COLOR } from '../../Component/Constants/Color';
 import { FONT_FAMILY } from '../../Component/Constants/Font';
+import { COLOR, SIZES } from '../../Component/Constants/Theme';
 
 export const styles = StyleSheet.create({
     container: {
+        width: SIZES.width,
+        height: SIZES.height,
+        flex:1,
         paddingHorizontal: 30,
-        marginVertical: 0,
+        marginVertical: 20,
     },
-    form:{
-        paddingBottom: 30,
+    flForm :{
+        flex: 10,
+        justifyContent: 'flex-end',
     },
-
+    flOption: {
+        marginTop: 15,
+        flex: 6,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        marginVertical: 15,
+    },
+    backButton: {
+        flex: 0.7,
+        flexDirection: 'row',
+    },
+    arrowReturn: {
+        width: 20,
+        height: 20,
+    },
+    title: {
+        paddingVertical: 20,
+    },
     textHeader: {
-        marginTop: 140,
         fontSize: 40,
         fontFamily: FONT_FAMILY,
         fontWeight: 'bold'
     },
     label : {
         marginVertical: 35,
-        textAlign: 'center',
-        fontSize: 15,
-        fontWeight: 'bold',
-        color: TEXT_COLOR,
+        fontSize: SIZES.h5,
+        color: COLOR.GrayText,
     },
     textDesc: {
-        color: TEXT_COLOR,
+        color: COLOR.GrayText,
         fontSize: 15,
         fontWeight: 'bold',
     },
 
     loginOption: {
         flex:1,
-        flexWrap: 'wrap',  
+        flexDirection: 'row', 
         marginHorizontal: 45,
     },
     oauth: {
@@ -41,18 +59,16 @@ export const styles = StyleSheet.create({
         marginHorizontal: 15,
     },
     footer : {
-        marginTop: 130,
         alignItems: 'center',
-        justifyContent: 'center',   
     },
+
     footerText: {
-        color: TEXT_COLOR,
+        color: COLOR.GrayText,
         fontSize: 15,
         paddingVertical: 6,
-
     },
     regis: {
-        color: BUTTON_COLOR,
+        color: COLOR.Red,
         fontWeight: 'bold',
-    }
+    } 
 });
