@@ -5,7 +5,7 @@ import LoginScreen from './Screen/Login/LoginScreen';
 import IntroSlider from './Screen/StartApp/IntroSlider';
 import Connection from './Service/client/Connection';
 
-
+// "expo-cli build:android -t apk"
 
 export default class App extends react.Component {
   render() {

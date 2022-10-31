@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const BASE_REST_API_URL = 'https://deloy-springboot-mongodb.herokuapp.com/api/v1';
 class UserService {
+
     getAuth(_username, _password) {
         var url = '/users/auth';
         return axios({
