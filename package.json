@@ -8,6 +8,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-native-community/checkbox": "^0.5.12",
     "@react-native-community/netinfo": "9.3.0",
     "@react-navigation/bottom-tabs": "^6.4.0",
@@ -32,11 +33,11 @@
     "react-native-swiper": "^1.6.0",
     "react-native-web": "~0.18.7",
     "react-navigation": "^4.4.4",
-    "react-navigation-stack": "^2.10.4",
-    "@react-native-async-storage/async-storage": "~1.17.3"
+    "react-navigation-stack": "^2.10.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@expo/webpack-config": "^0.17.3",
     "reinstall-node-modules": "^2.0.0"
   },
   "private": true

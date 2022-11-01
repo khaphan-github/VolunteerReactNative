@@ -1,19 +1,13 @@
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import AppNavigation from './routes/AppNavigation';
+import { AuthProvider } from './routes/AuthContext';
+import { AuthenticateStackNavigator } from './routes/AuthStack';
+import { MainStackNavigator } from './routes/homeStack';
+import AsyncStoraged from './Service/client/AsyncStoraged';
 
-import { MainStackNavigator } from "./routes/homeStack";
 const App = () => {
+  const isValidToken = AsyncStoraged.getToken() !== null;
   return (
-    <NavigationContainer theme={CustomTheme}>
-      <MainStackNavigator />
-    </NavigationContainer>
+      <AppNavigation navigate={ !isValidToken ?  <MainStackNavigator/> : <AuthenticateStackNavigator/>}/>
   );
 };
-
-const CustomTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: 'white',
-  },
-}
 export default App;

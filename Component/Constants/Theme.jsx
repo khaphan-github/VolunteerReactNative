@@ -7,6 +7,8 @@ export const COLOR = {
     GrayText: '#A0A0A0',
     Red: '#FF493C',
     LightGray: '#F8F8F8',
+    Sliver: '#C0C0C0',
+    LightGreen: '#A5F700',
 }
 
 export const SIZES = {
