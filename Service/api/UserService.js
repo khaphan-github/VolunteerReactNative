@@ -5,8 +5,15 @@ import AsyncStoraged from '../client/AsyncStoraged';
 const BASE_REST_API_URL = 'https://deloy-springboot-mongodb.herokuapp.com/api/v1';
 
 class UserService {
-
-
+    googleAuth() {
+        return axios({
+            method: 'get',
+            url: 'https://accounts.google.com/o/oauth2/v2/auth',
+            withCredentials: true,
+            timeout: 6000,
+        });
+    }
+    
     getAuth(_username, _password) {
         return axios({
             method: 'post',

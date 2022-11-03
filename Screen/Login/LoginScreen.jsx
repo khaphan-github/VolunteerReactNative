@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard, SafeAreaView } from 'react-native';
-import { Colors } from 'react-native-paper';
-import { COLOR } from '../../Component/Constants/Theme';
-import CustomAlert from '../../Component/Element/CustomAlert';
+import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard, SafeAreaView, Linking} from 'react-native';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import CustomButton from '../../Component/Element/CustomButton';
 import CustomInput from '../../Component/Element/CustomInput';
-import UserService from '../../Service/api/UserService';
 import AsyncStoraged from '../../Service/client/AsyncStoraged';
 
 import Auth from './Auth';
@@ -15,9 +12,8 @@ const mailIcon = '../../assets/icon/mailIcon.jpg';
 const phoneIcon = '../../assets/icon/passwordIcon.jpg';
 const fbIcon = '../../assets/icon/2021_Facebook_icon.svg.jpg';
 const googleIcon = '../../assets/icon/Google__G__Logo.svg.jpg';
-const zaloIcon = '../../assets/icon/zalo-seeklogo.jpg';
 const arow = '../../assets/icon/arrow-to-left.jpg';
-// rncs
+// rncs khaphan01@gmail.com khaphan001
 const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [usernameErrorMessage, setusernameErrorMessage] = useState('');
@@ -27,53 +23,61 @@ const LoginScreen = ({ navigation }) => {
 
     const [ButtonPress, setButtonPress] = useState('');
 
-    const showEmailandPhoneErrorMessage = (username) => {
-        if(username.length === 0) {
+    const showEmailandPhoneErrorMessage = (_username) => {
+        if (_username.length === 0) {
             setusernameErrorMessage('Tên đăng nhập không được trống');
         }
-        else if(Auth.isValidPhone(username) === false && Auth.isValidEmail(username) === false) {
+        else if (Auth.isValidPhone(_username) === false && Auth.isValidEmail(_username) === false) {
             setusernameErrorMessage('Tên đăng nhập sai định dạng');
         }
         else {
             setusernameErrorMessage('')
         }
     }
+
     const showPasswordMessage = (_password) => {
         if (_password.length === 0) {
             setPasswordErrorMessage('Mật khẩu không được trống');
-        }
-        else if(_password.length < 8) {
-            setPasswordErrorMessage('Mật khẩu ít nhất 8 ký tự');
         }
         else {
             setPasswordErrorMessage('');
         }
     }
-    
+
     const validateToGetAuth = () => {
-        const isValidUsername = Auth.isValidEmail(username) === true || Auth.isValidPhone(username) == true;
-        if(isValidUsername && password.length >= 8) {
+        const isValidUsername = Auth.isValidEmail(username) === true || Auth.isValidPhone(username) === true;
+        if (isValidUsername && password.length >= 8) {
             return true;
         }
         return false;
     }
+
+    const presWhenNoTextChange = () => {
+        if (username.length === 0) {
+            setusernameErrorMessage('Tên đăng nhập không được trống');
+        }
+        if (password.length === 0) {
+            setPasswordErrorMessage('Mật khẩu không được trống');
+        }
+    }
+
     const authenticate = async () => {
-        console.log('Press');
         setButtonPress(true);
+        presWhenNoTextChange();
         if (validateToGetAuth() === true) {
-            console.log('Press');
             await Auth.getAuth(username, password).then((res) => {
-                console.log('Token ' + res.data.token);
-                AsyncStoraged.storeData(res.data.token);
-                AsyncStoraged.getData().then((data) => { console.log('Store Token: ' + data) });
-                navigation.navigate('Home');
+                if (res.status === 200 && res.data.token.length !== 0) {
+                    AsyncStoraged.storeData(res.data.token);
+                    navigation.navigate('Home');
+                }
             }).catch(error => {
+                setPasswordErrorMessage('Sai tên đăng nhập hoặc mật khẩu!');
+                setusernameErrorMessage(' ');
                 console.error(error);
             });
         }
         setButtonPress(false);
     };
-
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -105,7 +109,7 @@ const LoginScreen = ({ navigation }) => {
                         />
 
                         <CustomInput
-                            onChangeText={ (passwordText) => {
+                            onChangeText={(passwordText) => {
                                 setPassword(passwordText);
                                 showPasswordMessage(passwordText);
                             }}
@@ -115,6 +119,7 @@ const LoginScreen = ({ navigation }) => {
                             error={passwordErrorMessage.length !== 0}
                             errorMessage={passwordErrorMessage}
                         />
+                        
                         <CustomButton onPress={() => authenticate()} title='Đăng nhập' isLoading={ButtonPress} />
                     </View>
                     <View style={styles.flOption}>
@@ -122,22 +127,27 @@ const LoginScreen = ({ navigation }) => {
                         <Text style={styles.label}>Hoặc đăng nhập với</Text>
 
                         <View style={styles.loginOption}>
-                            <Image style={styles.oauth} source={require(fbIcon)} />
-                            <Image style={styles.oauth} source={require(googleIcon)} />
+                            <Pressable onPress={() => alert('Chức năng đang được cập nhật')}>
+                                <Image style={styles.oauth} source={require(fbIcon)} />
+                            </Pressable>
+                            <Pressable onPress={() => {Linking.openURL('https://accounts.google.com/o/oauth2/v2/auth')}}>
+                                <Image style={styles.oauth} source={require(googleIcon)} />
+                            </Pressable>
                         </View>
 
                         <View style={styles.footer}>
-                            <Text style={styles.footerText}>Quên mật khẩu?</Text>
+                            <Pressable onPress={() => alert('Chức năng đang được cập nhật')}>
+                                <Text style={styles.footerText}>Quên mật khẩu?</Text>
+                            </Pressable>
                             <Text style={styles.footerText}>
                                 Bạn chưa có tài khoản?
                                 <Text style={styles.regis} onPress={() => navigation.navigate("Signup")}> Đăng ký</Text>
-
                             </Text>
                         </View>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
-        </SafeAreaView>
+        </SafeAreaView >
 
     );
 };

@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text, StyleSheet, Pressable, ActivityIndicator } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { COLOR, SIZES } from '../Constants/Theme';
 const CustomButton = ({ onPress, title, isLoading }) => {
     return (
-        <Pressable onPress={onPress} style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={styles.container}>
             {isLoading ? 
             <ActivityIndicator size='large' color='white' /> :
             <Text style={styles.title}>{title}</Text>}
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 const styles = StyleSheet.create({

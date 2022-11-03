@@ -6,6 +6,7 @@ import Signup from "./../Screen/Signup/SignupScreen";
 import IntroSlider from './../Screen/StartApp/IntroSlider';
 import HomeScreen from "../Screen/Home/HomeScreen";
 import AccountScreen from "../Screen/Account/AccountSreen";
+import ChangeAccountInfoScreen from "../Screen/ChangeAccountInfo/ChangeAccountInfoScreen";
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ const MainStackNavigator = () => {
       }}>
       <Stack.Screen name='Home' component={HomeScreen}/>
       <Stack.Screen name='Account' component={AccountScreen}/>
+      <Stack.Screen name='ChangeAccountInfo' component={ChangeAccountInfoScreen}/>
     </Stack.Navigator>
   );
 }

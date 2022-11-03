@@ -19,6 +19,9 @@ class Auth {
     };
     testToken = () => {
         return UserService.testToken();
+    };
+    googleAuth = () => {
+        return UserService.googleAuth();
     }
 };
 
