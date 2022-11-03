@@ -20,6 +20,7 @@ const CustomAlert = ({ visible, mess, onRequestClose, onPress }) => {
         </Modal>
     )
 }
+
 const styles = StyleSheet.create({
     containter: {
         flex: 1,

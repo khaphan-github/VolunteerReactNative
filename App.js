@@ -1,15 +1,12 @@
-import { NavigationContainer } from '@react-navigation/native';
-import react from 'react';
+import AppNavigation from './routes/AppNavigation';
+import { AuthenticateStackNavigator } from './routes/AuthStack';
+import { MainStackNavigator } from './routes/homeStack';
+import AsyncStoraged from './Service/client/AsyncStoraged';
 
-import {View} from 'react-native';
-import { MainStackNavigator } from "./routes/homeStack";
 const App = () => {
+  const isValidToken = AsyncStoraged.getToken() !== null;
   return (
-    <NavigationContainer>
-      <MainStackNavigator />
-    </NavigationContainer>
+      <AppNavigation navigate={ !isValidToken ?  <MainStackNavigator/> : <AuthenticateStackNavigator/>}/>
   );
 };
-
 export default App;
-
