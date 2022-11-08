@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard, SafeAreaView, Linking} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard, SafeAreaView, Linking } from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import CustomButton from '../../Component/Element/CustomButton';
 import CustomInput from '../../Component/Element/CustomInput';
 import AsyncStoraged from '../../Service/client/AsyncStoraged';
-
 import Auth from './Auth';
 import { styles } from './LoginSceenStyle';
+import GoogleAuth from './GoogleAuth';
 
 const mailIcon = '../../assets/icon/mailIcon.jpg';
 const phoneIcon = '../../assets/icon/passwordIcon.jpg';
 const fbIcon = '../../assets/icon/2021_Facebook_icon.svg.jpg';
-const googleIcon = '../../assets/icon/Google__G__Logo.svg.jpg';
 const arow = '../../assets/icon/arrow-to-left.jpg';
+
 // rncs khaphan01@gmail.com khaphan001
 const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -78,6 +78,11 @@ const LoginScreen = ({ navigation }) => {
         }
         setButtonPress(false);
     };
+
+    useEffect(() => {
+            console.warn("useeffect");
+    
+    }, []);
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -119,7 +124,7 @@ const LoginScreen = ({ navigation }) => {
                             error={passwordErrorMessage.length !== 0}
                             errorMessage={passwordErrorMessage}
                         />
-                        
+
                         <CustomButton onPress={() => authenticate()} title='Đăng nhập' isLoading={ButtonPress} />
                     </View>
                     <View style={styles.flOption}>
@@ -130,9 +135,7 @@ const LoginScreen = ({ navigation }) => {
                             <Pressable onPress={() => alert('Chức năng đang được cập nhật')}>
                                 <Image style={styles.oauth} source={require(fbIcon)} />
                             </Pressable>
-                            <Pressable onPress={() => {Linking.openURL('https://accounts.google.com/o/oauth2/v2/auth')}}>
-                                <Image style={styles.oauth} source={require(googleIcon)} />
-                            </Pressable>
+                            <GoogleAuth style={styles.oauth}/>
                         </View>
 
                         <View style={styles.footer}>

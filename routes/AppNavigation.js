@@ -1,5 +1,4 @@
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { MainStackNavigator } from './homeStack';
 
 
 const AppNavigation = ({navigate}) => {
