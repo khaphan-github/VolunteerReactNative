@@ -5,7 +5,6 @@ import Login from "./../Screen/Login/LoginScreen";
 import Signup from "./../Screen/Signup/SignupScreen";
 import IntroSlider from './../Screen/StartApp/IntroSlider';
 import HomeScreen from "../Screen/Home/HomeScreen";
-import AccountScreen from "../Screen/Account/AccountSreen";
 
 const Stack = createStackNavigator();
 

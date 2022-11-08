@@ -1,0 +1,1 @@
+`${_REST_API_URL}/${redirectUri}`

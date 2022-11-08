@@ -6,7 +6,7 @@ import AsyncStoraged from './Service/client/AsyncStoraged';
 const App = () => {
   const isValidToken = AsyncStoraged.getToken() !== null;
   return (
-      <AppNavigation navigate={ !isValidToken ?  <MainStackNavigator/> : <AuthenticateStackNavigator/>}/>
-  );
+       <AppNavigation navigate={ !isValidToken ?  <MainStackNavigator/> : <AuthenticateStackNavigator/>}/>
+      );
 };
 export default App;

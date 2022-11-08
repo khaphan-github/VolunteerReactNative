@@ -143,6 +143,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
+        manifestPlaceholders = [appAuthRedirectScheme: 'https://auth.expo.io/@khaphanbe/viec-tu-te']
         applicationId 'com.VolunteerReactNativeApps'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
