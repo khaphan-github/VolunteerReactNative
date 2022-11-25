@@ -1,6 +1,5 @@
 import axios from 'axios';
 import AsyncStoraged from '../client/AsyncStoraged';
-import AsyncStoraged from '../client/AsyncStoraged';
 class UserService {
     // send request to server when user authenticated google
     sendGoogleUserData(googleUser) {

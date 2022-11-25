@@ -1,7 +1,6 @@
 import {StyleSheet} from 'react-native';
 import { BUTTON_COLOR, TEXT_COLOR } from '../../Component/Constants/Color';
 //import { FONT_FAMILY } from '../../Component/Constants/Font';
-import { useFonts, Roboto_300Light, Roboto_900Black } from '@expo-google-fonts/roboto';
 
 export const styles = StyleSheet.create({
     container: {
@@ -16,12 +15,11 @@ export const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     nameApp:{
-        fontFamily: 'Roboto_900Black',
+       // fontFamily: 'Roboto_900Black',
         fontWeight: '600',
         fontSize: 30,
         color:'red', 
         paddingLeft: 10,
-        
     },
     stories:{
         flex: 1,
@@ -109,7 +107,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
     },
     author:{
-        fontFamily: 'Roboto_900Black',
+        // fontFamily: Roboto_900Black,
         fontWeight: '600',
         fontSize: 16
     },
@@ -132,11 +130,11 @@ export const styles = StyleSheet.create({
     },
     textHeader: {
         fontSize: 16,
-        fontFamily: 'Roboto_900Black',
+       //  fontFamily: 'Roboto_900Black',
         fontWeight: 'bold'
     },
     textDesc:{
-        fontFamily: 'Roboto_300Light',
+        // fontFamily: 'Roboto_300Light',
         paddingRight: 5,
         
     }
@@ -155,10 +153,10 @@ export const styles = StyleSheet.create({
         fontSize: 17,
         color: '#FF493C',
         paddingBottom: 10,
-        fontFamily: 'Roboto_300Light',
+        // fontFamily: 'Roboto_300Light',
     },
     progressbarTextBold:{
-        fontFamily: 'Roboto_900Black',
+        // fontFamily: 'Roboto_900Black',
         fontWeight: '500',
         fontSize: 17,
         color: '#FF493C',
@@ -178,14 +176,14 @@ export const styles = StyleSheet.create({
         flexDirection:'row'
     },
     participateTextBold:{
-        fontFamily: 'Roboto_900Black',
+        // fontFamily: 'Roboto_900Black',
         marginLeft: 105,
         fontSize: 17,
         marginTop: 8,
         fontWeight: '500'
     },
     participateTextLight:{
-        fontFamily: 'Roboto_300Light',
+        // fontFamily: Roboto_300Light,
         fontSize: 17,
         marginTop: 8
     }
@@ -248,7 +246,7 @@ export const styles = StyleSheet.create({
         marginTop: 4,
     },
     titleButton:{
-        fontFamily: 'Roboto_900Black',
+       // fontFamily: 'Roboto_900Black',
         fontWeight: '700',
         color: 'white',
         fontSize: 16,

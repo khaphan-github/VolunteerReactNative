@@ -77,8 +77,8 @@ function Post({post}){
                             </View>
                             
                             <View style={styles.participateText}>
-                                <Text style={styles.participateTextBold}>{post.peopleOk} người</Text>
-                                <Text style={styles.participateTextLight}> đã tham gia</Text>
+                                <Text style={styles.participateTextBold}>{post.peopleOk} Người</Text>
+                                <Text style={styles.participateTextLight}> Đã tham gia</Text>
                             </View>
                         </View>
                         <Button 
@@ -158,7 +158,7 @@ const Home = () => {
                                 </View>
                             </View>
                         </View>
-                        {data.map((post) => <Stories img={post.profile_img} name={post.author}/>)}
+                        {data.map((post) => <Stories key="{item}" img={post.profile_img} name={post.author}/>)}
                     </ScrollView>
                 </View>
             </View>
