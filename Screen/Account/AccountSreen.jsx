@@ -23,26 +23,21 @@ const AccountScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.buttonInformation}>
                         <View style={styles.heartPoint}>
-                            <Image style={styles.heartIcon} source={require('../../assets/icon/AccountScreenICon/1103-confetti-flat.gif')} />
                             <Text style={styles.heartValue}>123</Text>
                         </View>
                     </View>
                     <View style={styles.options}>
-                        <Option onPress={() => {navigation.navigate('ChangeAccountInfo')}} headIcon={require('../../assets/icon/AccountScreenICon/icons8-customer-96.png')} title={'Thay đổi thông tin tài khoản'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-favorite-96.png')} title={'Các hoạt động đã tham gia'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-list-view-100.png')} title={'Danh sách theo giỏi'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-ask-question-100.png')} title={'Trợ giúp'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-privacy-policy-100.png')} title={'Chính xách bảo mật'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-policy-64.png')} title={'Điều khoản sử dụng'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-list-view-100.png')} title={'Danh sách theo giỏi'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-ask-question-100.png')} title={'Trợ giúp'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-privacy-policy-100.png')} title={'Chính xách bảo mật'} />
-                        <Option headIcon={require('../../assets/icon/AccountScreenICon/icons8-policy-64.png')} title={'Điều khoản sử dụng'} />
+                        <Option onPress={() => {navigation.navigate('ChangeAccountInfo')}} title={'Thay đổi thông tin tài khoản'} />
+                        <Option title={'Các hoạt động đã tham gia'} />
+                        <Option title={'Danh sách theo giỏi'} />
+                        <Option title={'Trợ giúp'} />
+                        <Option title={'Chính xách bảo mật'} />
+                
                         <CustomButton title={'Đăng xuất'} onPress={ async () => {
                             await AsyncStoraged.removeData();
                             console.log(AsyncStoraged.getToken());
                             navigation.navigate('AuthStackNavigator', {screen: 'IntroSlider'});
-                            }}/>
+                            }}/> 
                     </View>
                 </ScrollView>
         </SafeAreaView>

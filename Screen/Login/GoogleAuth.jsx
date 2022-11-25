@@ -22,6 +22,7 @@ const GoogleAuth = ({ style, navigation }) => {
         if (response?.type === 'success') {
             const token = response.authentication.accessToken;
             fetchUserInfo(token);
+            navigation.navigate("Home");
         }
     }, [response]);
 
@@ -29,6 +30,7 @@ const GoogleAuth = ({ style, navigation }) => {
         let response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
             headers: { Authorization: `Bearer ${accessToken}` }
         });
+
         const data = await response.json();
         console.log(data.picture);
 
@@ -41,7 +43,7 @@ const GoogleAuth = ({ style, navigation }) => {
             console.error(error);
         });
     }
-
+    
     return (
         <Pressable onPress={() => { promptAsync() }}>
             <Image style={style} source={require(googleIcon)} />

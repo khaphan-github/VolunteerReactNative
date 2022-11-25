@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native';
 
-const {width, height}  = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 export const COLOR = {
     DeepBlue: '#072A6C',
     RedPink: '#F92A53',
@@ -9,7 +9,9 @@ export const COLOR = {
     LightGray: '#F8F8F8',
     Sliver: '#F0F0F0',
     LightGreen: '#A5F700',
+    LightBlack: '#E0E2E7',
 }
+
 
 export const SIZES = {
     h1: 22,
