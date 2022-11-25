@@ -38,7 +38,14 @@
         "projectId": "fbbaa2c1-afb6-49a6-bf88-0af0e0d2fc75"
       }
     },
-
-    "scheme": "https://auth.expo.io/@khaphanbe/viec-tu-te"
+    "scheme": "https://auth.expo.io/@khaphanbe/viec-tu-te",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
   }
 }

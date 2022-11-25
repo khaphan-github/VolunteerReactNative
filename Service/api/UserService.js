@@ -5,9 +5,9 @@ class UserService {
     sendGoogleUserData(googleUser) {
         return axios({
             method: 'post',
-            url: 'http://192.168.1.4:8080/api/v1/auth/google/',
+            url: 'http://192.168.9.90:8080/api/v1/auth/google/',
             withCredentials: true,
-            timeout: 10000,
+            timeout: 1000,
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -21,7 +21,6 @@ class UserService {
                 picture: googleUser.picture,
                 verified_email: googleUser.verified_email
             }
-
         });
     }
 
@@ -72,6 +71,78 @@ class UserService {
             },
         });
     }
+
+    async uploadProfileImage(urlImage, _type) {
+        const userStored = await AsyncStoraged.getData();
+        if (!userStored) {
+            throw new Error('User not found!');
+        }
+
+        const username = userStored.responseUser.email ? userStored.responseUser.email : userStored.responseUser.phonenumber;
+        console.info('USERNAME:' + username);
+
+        const userToken = userStored.token;
+        console.info('USER TOKEN:' + userToken);
+        // TODO: Check valid token - then refresh token or login again;
+
+        const baseAPIImageUrl = 'https://deloy-springboot-mongodb.herokuapp.com/api/upload';
+        let _url = baseAPIImageUrl;
+        if (_type === 'avatar') { _url += '/avatar'; }
+        else if (_type === 'cover') { _url += '/cover'; }
+        else { throw new Error('Type Image Illegal!'); }
+
+        let fileName = urlImage.split('/').pop();
+        let match = /\.(\w+)$/.exec(fileName);
+        let typeImage = match ? `image/${match[1]}` : `image`;
+
+        let formData = new FormData();
+
+        formData.append('file', {
+            uri: urlImage,
+            name: fileName,
+            type: typeImage
+        });
+        formData.append('username', username);
+
+        return await axios({
+            method: 'post',
+            url: _url,
+            timeout: 3000,
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + userToken,
+            },
+            data: formData,
+        });
+    }
+
+    async updateUser(user) {
+        const api = 'https://deloy-springboot-mongodb.herokuapp.com/api/v1/users/update';
+        const userStored = await AsyncStoraged.getData();
+        if (!userStored) {
+            throw new Error('User not found!');
+        }
+
+        const username = userStored.responseUser.email ? userStored.responseUser.email : userStored.responseUser.phonenumber;
+        console.info('USERNAME:' + username);
+
+        const userToken = userStored.token;
+        console.info('USER TOKEN:' + userToken);
+        return await axios({
+            method: 'post',
+            url: api,
+            timeout: 1000,
+            withCredentials: true,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + userToken,
+            },
+            data: user,
+        });
+    }
+
 }
 
 export default new UserService();

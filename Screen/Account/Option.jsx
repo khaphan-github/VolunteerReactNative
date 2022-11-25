@@ -25,16 +25,6 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         backgroundColor: 'white',
         borderRadius: 5,
-
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 1,
     },
     flex: {
         flex: 1,
@@ -48,15 +38,14 @@ const styles = StyleSheet.create({
     },
     flexText: {
         flex: 5,
-        marginHorizontal: 20,
+        marginHorizontal: 10,
     },
     iconImage: {
-        width: 30,
-        height: 30,
-        marginRight: 10,
+        width: 25,
+        height: 25,
     },
     text: {
-        fontSize: SIZES.h4,
+        fontSize: SIZES.h5,
         opacity: 0.7,
     },
     flexArrow: {

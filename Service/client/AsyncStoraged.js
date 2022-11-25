@@ -1,13 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 class AsyncStoraged {
     storeData = async (value) => {
         try {
             const jsonValue = JSON.stringify(value)
             await AsyncStorage.setItem('Authorized', jsonValue);
         } catch (error) {
-            console.log('Store' + error);
+            console.error('Store' + error);
         }
     }
 
@@ -16,7 +15,7 @@ class AsyncStoraged {
             const jsonValue = await AsyncStorage.getItem('Authorized')
             return jsonValue != null ? JSON.parse(jsonValue) : null;
         } catch (error) {
-            console.log('get store', error);
+            console.error('get store', error);
         }
     }
 
@@ -24,7 +23,7 @@ class AsyncStoraged {
         try {
             await AsyncStorage.removeItem('Authorized');
         } catch (e) {
-            // remove error
+            console.error(e);
         }
         console.log('Done.')
     }
@@ -32,10 +31,9 @@ class AsyncStoraged {
     getToken = async () => {
         let jwt = '';
         await AsyncStorage.getItem('Authorized')
-            .then((data) => { jwt = data; })
+            .then((data) => { jwt = data.token; })
             .catch(error => { console.error(error); });
         return jwt;
     };
-
 }
 export default new AsyncStoraged();

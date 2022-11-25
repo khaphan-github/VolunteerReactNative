@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import { BUTTON_COLOR, TEXT_COLOR } from '../../Component/Constants/Color';
-import { FONT_FAMILY } from '../../Component/Constants/Font';
 
 export const styles = StyleSheet.create({
     container: {
@@ -14,7 +13,6 @@ export const styles = StyleSheet.create({
     textHeader: {
         marginTop: 120,
         fontSize: 40,
-        fontFamily: FONT_FAMILY,
         fontWeight: 'bold'
     },
     label : {

@@ -5,6 +5,7 @@ import Login from "./../Screen/Login/LoginScreen";
 import Signup from "./../Screen/Signup/SignupScreen";
 import IntroSlider from './../Screen/StartApp/IntroSlider';
 import HomeScreen from "../Screen/Home/HomeScreen";
+import GoogleAuth from "../Screen/Login/GoogleAuth";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,8 @@ const AuthenticateStackNavigator = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name='Home' component={HomeScreen}/>
+      <Stack.Screen name='Google' component={GoogleAuth}/>
+
     </Stack.Navigator>
   );
 }
