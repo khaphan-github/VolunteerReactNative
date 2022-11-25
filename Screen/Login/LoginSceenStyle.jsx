@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { FONT_FAMILY } from '../../Component/Constants/Font';
+//import { FONT_FAMILY } from '../../Component/Constants/Font';
 import { COLOR, SIZES } from '../../Component/Constants/Theme';
 
 export const styles = StyleSheet.create({
@@ -34,7 +34,6 @@ export const styles = StyleSheet.create({
     },
     textHeader: {
         fontSize: 40,
-        fontFamily: FONT_FAMILY,
         fontWeight: 'bold'
     },
     label : {
