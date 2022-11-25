@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AsyncStoraged from '../client/AsyncStoraged';
+import AsyncStoraged from '../client/AsyncStoraged';
 class UserService {
     // send request to server when user authenticated google
     sendGoogleUserData(googleUser) {
@@ -55,6 +56,20 @@ class UserService {
                 phonenumber: _phonenumber,
                 type: _type
             }
+        });
+    } 
+
+    async testToken() {
+        return axios({
+            method: 'get',
+            url: 'https://deloy-springboot-mongodb.herokuapp.com/api/hello',
+            withCredentials: true,
+            timeout: 1000,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + await AsyncStoraged.getToken(),
+            },
         });
     }
 
