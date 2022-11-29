@@ -19,7 +19,6 @@ const AuthenticateStackNavigator = () => {
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name='Home' component={HomeScreen}/>
       <Stack.Screen name='Google' component={GoogleAuth}/>
-
     </Stack.Navigator>
   );
 }

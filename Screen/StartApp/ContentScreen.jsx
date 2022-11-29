@@ -11,10 +11,7 @@ const ContentScreen = ({ title, desc, options }) => {
         <Pressable style={styles.option}>
           <Text style={styles.optionText}>{options}</Text>
         </Pressable>
-
       </View>
-
-
     </View >
   );
 };
@@ -52,7 +49,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
 
     marginVertical: 5,
-    marginHorizontal: 5,
+    marginRight: 10,
     paddingVertical: 10,
 
     backgroundColor: COLOR.Sliver,

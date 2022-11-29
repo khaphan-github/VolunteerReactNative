@@ -13,7 +13,7 @@ const CustomButton = ({ onPress, title, isLoading }) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: COLOR.Red,
-        height: 55,
+        height: 50,
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     },
     title: {
         color: 'white',
-        fontSize: SIZES.h3,
-        fontWeight: 'bold',
+        fontSize: SIZES.h4,
+        fontWeight: '600',
     }
 });
 export default CustomButton;

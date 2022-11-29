@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
         height: 25,
     },
     text: {
-        fontSize: SIZES.h5,
-        opacity: 0.7,
+        fontSize: SIZES.h4,
+        opacity: 0.8,
     },
     flexArrow: {
         flex: 0.3,
