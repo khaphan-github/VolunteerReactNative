@@ -2,22 +2,27 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
 import { COLOR, SIZES } from '../Constants/Theme';
 
-const CustomInputV1 = ({ value, placeholder, secureTextEntry, onChangeText, errorMessage, maxLength }) => {
+const CustomInputV1 = ({ style,keyboardType, value, placeholder, secureTextEntry, onChangeText, errorMessage, maxLength, label }) => {
 
     return (
-        <React.Fragment>
+        <View style={style}>
+            {label &&
+                <Text style={styles.label}>{label}
+                    <Text style={{ color: COLOR.RedPink }}> *</Text>
+                </Text>}
             <View style={[styles.container, { borderColor: errorMessage ? COLOR.RedPink : COLOR.LightBlack }]}>
-                <TextInput value={value}
+                <TextInput
+                    keyboardType={keyboardType}
+                    value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
                     style={styles.input}
                     secureTextEntry={secureTextEntry}
                     maxLength={maxLength}
-
                 />
             </View>
             {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
-        </React.Fragment>
+        </View>
     );
 };
 
@@ -31,6 +36,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 5,
         borderWidth: 1,
+    },
+    label: {
+        fontSize: SIZES.h4,
+        fontWeight: '400'
     },
     input: {
         fontSize: SIZES.h4,

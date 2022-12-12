@@ -72,19 +72,6 @@ class UserService {
         });
     }
 
-    async testToken() {
-        return axios({
-            method: 'get',
-            url: 'https://deloy-springboot-mongodb.herokuapp.com/api/hello',
-            withCredentials: true,
-            timeout: 1000,
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + await AsyncStoraged.getToken(),
-            },
-        });
-    }
 
     async uploadProfileImage(urlImage, _type) {
         const userStored = await AsyncStoraged.getData();

@@ -10,8 +10,6 @@ const slides = [
         title: 'Transition Presets',
         description: 'Mộ  được cung cấp bởi react-navigation',
         options:  'Sinh viên tại trường đại học'
-         
-        
     },
     {
         id: 2,
@@ -21,9 +19,9 @@ const slides = [
     },
     {
         id: 3,
-        title: 'Transition Spec',
+        title: 'Tích hợp ứng HDBank',
         description: 'Đây animation mà chúng ta sẽ sử dụng. Nó dùng để config cho việc đóng và mở của navigation bằng 2 property',
-        options:      'Sinh viên tại trường đại học'     
+        options: 'Bạn đã có tài khoản HD Bank'     
     }
 ];
 const IntroSlider = ({ navigation }) => {
