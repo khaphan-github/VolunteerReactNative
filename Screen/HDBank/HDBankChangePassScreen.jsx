@@ -4,9 +4,17 @@ import { COLOR, SIZES } from "../../Component/Constants/Theme";
 import CustomButton from "../../Component/Element/CustomButton";
 import CustomInputV1 from "../../Component/Element/CustomInputV1";
 const HDBankChangePassScreen = ({ navigation }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [oldPassword, setOldPassword] = useState('');
+    const [oldPasswordError, setOldPasswordError] = useState('');
+
+    const [newPassword, setNewPassword] = useState('');
+    const [newPasswordError, setNewPasswordError] = useState('');
+    
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [confirmNewPasswordError, setConfirmNewPasswordError] = useState('');
+
     const [WaitForLogin, setWaitForLogin] = useState(false);
+
     const HDBankChangePassword = async () => {
         setWaitForLogin(true);
         navigation.navigate('HDBankValidateOTP');
@@ -35,19 +43,19 @@ const HDBankChangePassScreen = ({ navigation }) => {
                         label={'Nhập mật khẩu cũ'}
                         maxLength={30}
                         secureTextEntry={true}
-                        onChangeText={(text) => setUsername(text)}
+                        onChangeText={(text) => setOldPassword(text)}
                     />
                     <CustomInputV1
                         label={'Mật khẩu mới'}
                         maxLength={30}
                         secureTextEntry={true}
-                        onChangeText={(text) => setPassword(text)}
+                        onChangeText={(text) => setNewPassword(text)}
                     />
                     <CustomInputV1
                         label={'Xác nhận mật khẩu mới'}
                         maxLength={30}
                         secureTextEntry={true}
-                        onChangeText={(text) => setPassword(text)}
+                        onChangeText={(text) => setConfirmNewPassword(text)}
                     />
                     <CustomButton
                         title='Đổi mật khẩu'

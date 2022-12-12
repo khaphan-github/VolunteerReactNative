@@ -3,11 +3,95 @@ import { StyleSheet, Text, Pressable, View, Image, ScrollView } from "react-nati
 import { COLOR, SIZES } from "../../Component/Constants/Theme";
 import CustomButton from "../../Component/Element/CustomButton";
 import CustomInputV1 from "../../Component/Element/CustomInputV1";
+import Auth from "../../Service/Validate/Auth";
 const HDBankRegisterScreenInfo = ({ navigation }) => {
+    const [fullname, setFullname] = useState('');
+    const [fullnameError, setFullnameError] = useState('');
+
+    const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('');
+
+    const [phone, setPhone] = useState('');
+    const [phoneError, setPhoneError] = useState('');
+
+    const [identifyNum, setIdentifyNum] = useState('');
+    const [identifyNumError, setIdentifyNumError] = useState('');
+
     const [nextScreen, setNextScreen] = useState(true);
     const [WaitForLogin, setWaitForLogin] = useState(false);
+
+    const validateFullname = (_fullname) => {
+        if (_fullname.length === 0) {
+            setFullnameError('Họ và tên không được để trống');
+            setFullname(_fullname);
+            return false;
+        }
+        if (_fullname.trim().length > 51) {
+            setFullnameError('Họ và tên không vượt quá 52 ký tự');
+            setFullname(_fullname);
+            return false;
+        }
+        setFullnameError('');
+        setFullname(_fullname);
+        return true;
+    }
+
+    const validateEmail = (_email) => {
+        if (_email.trim().length === 0) {
+            setEmailError('Email không được để trống');
+            setEmail(_email);
+            return false;
+        }
+        if (!Auth.isValidEmail(_email.trim())) {
+            setEmailError('Email sai định dạng');
+            setEmail(_email);
+            return false;
+        }
+        if (_email.trim().length > 255) {
+            setEmailError('Email không vượt quá 255 ký tự');
+            setEmail(_email);
+            return false;
+        }
+        setEmailError('');
+        setEmail(_email);
+        return true;
+    }
+
+    const validatePhone = (_phone) => {
+        if (_phone.trim().length === 0) {
+            setPhoneError('Số điện thoại không được để trống');
+            setPhone(_phone);
+            return false;
+        }
+        if (!Auth.isValidPhone(_phone.trim())) {
+            setPhoneError('Số điện thoại sai định dạng');
+            setPhone(_phone);
+            return false;
+        }
+        setPhoneError('');
+        setPhone(_phone);
+        return true;
+    }
+    
+    const validateIdenityNum = (_identityNum) => {
+        if (_identityNum.trim().length === 0) {
+            setIdentifyNumError('CMND/CCCD không được để trống');
+            setIdentifyNum(_identityNum);
+            return false;
+        }
+        if (!Auth.isValidPhone(_identityNum.trim())) {
+            setIdentifyNumError('CMND/CCCD sai định dạng');
+            setIdentifyNum(_identityNum);
+            return false;
+        }
+        setPhoneEsetIdentifyNumErrorrror('');
+        setIdentifyNum(_identityNum);
+        return true;
+    }
+
     const Register = () => {
         // Call API
+        setWaitForLogin(true);
         navigation.navigate('HDBankValidateOTP')
     }
     return (
@@ -34,19 +118,31 @@ const HDBankRegisterScreenInfo = ({ navigation }) => {
                     <ScrollView>
                         <CustomInputV1
                             label={'Họ và tên'}
-                            maxLength={50}
+                            maxLength={52}
+                            value={fullname}
+                            onChangeText={(text) => {validateFullname(text)}}
+                            errorMessage={fullnameError}
                         />
                         <CustomInputV1
                             label={'Email'}
                             maxLength={99}
+                            value={email}
+                            onChangeText={(text) => {validateEmail(text)}}
+                            errorMessage={emailError}
                         />
                         <CustomInputV1
                             label={'Phone'}
-                            maxLength={11}
+                            maxLength={10}
+                            value={phone}
+                            onChangeText={(text) => {validatePhone(text)}}
+                            errorMessage={phoneError}
                         />
                         <CustomInputV1
                             label={'CMND/CCCD'}
-                            maxLength={30}
+                            maxLength={12}
+                            value={identifyNum}
+                            onChangeText={(text) => {validateIdenityNum(text)}}
+                            errorMessage={identifyNumError}
                         />
                         <CustomButton
                             title='Tiếp Tục'
@@ -92,7 +188,6 @@ const HDBankRegisterScreenInfo = ({ navigation }) => {
                         </Text>
                     </View>
                 </View>}
-
         </View>
     );
 };

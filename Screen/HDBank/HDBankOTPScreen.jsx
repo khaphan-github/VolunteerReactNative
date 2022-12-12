@@ -2,26 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView, TextInput, Pressable, StyleSheet } from 'react-native';
 import { COLOR, SIZES } from '../../Component/Constants/Theme';
 import CustomButton from '../../Component/Element/CustomButton';
-import CustomInput from '../../Component/Element/CustomInput';
 import CustomInputV1 from '../../Component/Element/CustomInputV1';
 
 
-const HDBankOTPScreen = ({ navigation }) => {
+const HDBankOTPScreen = ({ navigation, route }) => {
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
     const [WaitForLogin, setWaitForLogin] = useState(false);
 
-    const [timerCount, setTimer] = useState(20);
-
-    useEffect(() => {
-        let interval = setInterval(() => {
-            setTimer(lastTimerCount => {
-                lastTimerCount <= 1 && clearInterval(interval)
-                return lastTimerCount - 1
-            })
-        }, 1000)
-        return () => clearInterval(interval)
-    }, []);
+    const [timerCount, setTimer] = useState(25);
 
     const ValidateOTP = async () => {
         setWaitForLogin(true);
@@ -33,6 +22,24 @@ const HDBankOTPScreen = ({ navigation }) => {
         // Call API
     }
 
+    useEffect(() => {
+        if (route.params?.phone) {
+            // Post updated, do something with `route.params.post`
+            // For example, send the post to the server
+            // 
+            setPhone(route.params?.phone);
+        }
+    }, [route.params?.phone]);
+
+    useEffect(() => {
+        let interval = setInterval(() => {
+            setTimer(lastTimerCount => {
+                lastTimerCount <= 1 && clearInterval(interval)
+                return lastTimerCount - 1
+            })
+        }, 1000)
+        return () => clearInterval(interval)
+    }, []);
 
     return (
         <View style={styles.centeredView}>
@@ -56,8 +63,9 @@ const HDBankOTPScreen = ({ navigation }) => {
                         <Image style={styles.logo} source={require('../../assets/icon/HDBank/hdbankLogo.png')} />
                     </View>
                     <View style={styles.content}>
-                        <Text style={styles.textContent}>Việc tử tế đã gửi Mã xác thực qua số điện thoại 032 **** 938 </Text>
-
+                        <Text style={styles.textContent}>Việc tử tế đã gửi Mã xác thực qua số điện thoại
+                            <Text style={{ fontWeight: '500' }}> {phone} </Text>
+                        </Text>
                     </View>
                     <View style={styles.otpInput}>
                         <CustomInputV1 style={styles.textFlex} maxLength={1} keyboardType={'numeric'} />

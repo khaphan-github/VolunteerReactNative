@@ -1,65 +1,117 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
+import { Alert, Modal, StyleSheet, Text, Pressable, View, Image,TouchableWithoutFeedback, Keyboard } from "react-native";
 import { COLOR, SIZES } from "../../Component/Constants/Theme";
 import CustomButton from "../../Component/Element/CustomButton";
 import CustomInputV1 from "../../Component/Element/CustomInputV1";
-const HDBankLoginScreen = ({ navigation }) => {
+import HDBankService from "../../Service/api/HDBankService";
+const HDBankLoginScreen = ({ navigation, route }) => {
     const [username, setUsername] = useState('');
+    const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
+
     const [password, setPassword] = useState('');
+    const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+
     const [WaitForLogin, setWaitForLogin] = useState(false);
-    const HDBankLogin = async () => {
-        setWaitForLogin(true);
-        navigation.navigate('HDBankValidateOTP');
+
+    const validateUsername = (_username) => {
+        if (_username.trim().length === 0) {
+            setUsernameErrorMessage('Tên đăng nhập không được để trống');
+            setUsername(_username.trim());
+            return false;
+        }
+        setUsernameErrorMessage('');
+        setUsername(_username.trim());
+        return true;
+    }
+
+    const validatePassword = (_password) => {
+        if (_password.trim().length == 0) {
+            setPasswordErrorMessage('Mật khẩu không được để trống');
+            setPassword(_password.trim());
+            return false;
+        }
+        setPasswordErrorMessage('');
+        setPassword(_password.trim());
+        return true;
+    }
+
+    const HDBankLogin = async (_username, _password) => {
+        const isValidatedUsername = validateUsername(_username);
+        const isValidatedPassword = validatePassword(_password);
+        if (isValidatedUsername && isValidatedPassword) {
+            setWaitForLogin(true);
+            Keyboard.dismiss();
+            let userPhone = '';
+
+            HDBankService.login(_username, _password).then((res) => {
+                console.log(res);
+                userPhone = '0329199948';
+            }).catch(error => {
+                console.error(error);
+                userPhone = '0329199948';
+                navigation.navigate('HDBankValidateOTP', { phone: userPhone });
+            }).then(() => { setWaitForLogin(false); });
+        }
     }
     return (
-        <View style={styles.centeredView}>
-            <View style={styles.header}>
-                <Pressable
-                    style={styles.goback}
-                    onPress={() => { navigation.navigate('HDBankAccount') }}>
-                    <Image
-                        style={styles.gobackIcon}
-                        source={require('../../assets/icon/arrow-to-left.jpg')}
-                    />
-                </Pressable>
-                <Text style={styles.headerName}>
-                    Đăng nhập tài khoản HDBank
-                </Text>
-            </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <View style={styles.flexLogo}>
-                        <Image style={styles.logo} source={require('../../assets/icon/HDBank/hdbankLogo.png')} />
-                    </View>
-                    <CustomInputV1
-                        label={'Tên đăng nhập'}
-                        maxLength={30}
-                        onChangeText={(text) => setUsername(text)}
-                    />
-                    <CustomInputV1
-                        label={'Mật khẩu'}
-                        maxLength={30}
-                        secureTextEntry={true}
-                        onChangeText={(text) => setPassword(text)}
-                    />
-                    <CustomButton
-                        title='Liên kết với chúng tôi'
-                        isLoading={WaitForLogin}
-                        onPress={() => { HDBankLogin() }}
-                    />
-                    <View style={styles.footer}>
-                        <Pressable onPress={() => alert('Chức năng đang được cập nhật')}>
-                            <Text style={styles.footerText}>Quên mật khẩu?</Text>
-                        </Pressable>
-                        <Text style={styles.footerText}>
-                            Bạn chưa có tài khoản?
-                            <Text style={styles.regis} onPress={() => navigation.navigate("HDBankRegisterInfo")}> Đăng ký</Text>
-                        </Text>
+                <View style={styles.header}>
+                    <Pressable
+                        style={styles.goback}
+                        onPress={() => { navigation.navigate('HDBankAccount') }}>
+                        <Image
+                            style={styles.gobackIcon}
+                            source={require('../../assets/icon/arrow-to-left.jpg')}
+                        />
+                    </Pressable>
+                    <Text style={styles.headerName}>
+                        Đăng nhập tài khoản HDBank
+                    </Text>
+                </View>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={styles.flexLogo}>
+                            <Image style={styles.logo} source={require('../../assets/icon/HDBank/hdbankLogo.png')} />
+                        </View>
+                        <CustomInputV1
+                            label={'Tên đăng nhập'}
+                            maxLength={64}
+                            value={username}
+                            onChangeText={(text) => {
+                                validateUsername(text);
+                            }}
+                            errorMessage={usernameErrorMessage}
+                        />
+                        <CustomInputV1
+                            label={'Mật khẩu'}
+                            maxLength={64}
+                            value={password}
+                            secureTextEntry={true}
+                            onChangeText={(text) => {
+                                validatePassword(text)
+                            }}
+                            errorMessage={passwordErrorMessage}
+                        />
+                        <CustomButton
+                            title='Liên kết với chúng tôi'
+                            isLoading={WaitForLogin}
+                            onPress={() => { HDBankLogin(username, password) }}
+                        />
+                        <View style={styles.footer}>
+                            <Pressable onPress={() => alert('Chức năng đang được cập nhật')}>
+                                <Text style={styles.footerText}>Quên mật khẩu?</Text>
+                            </Pressable>
+                            <Text style={styles.footerText}>
+                                Bạn chưa có tài khoản?
+                                <Text style={styles.regis} onPress={() => navigation.navigate("HDBankRegisterInfo")}> Đăng ký</Text>
+                            </Text>
+                        </View>
                     </View>
                 </View>
-            </View>
 
-        </View>
+            </View>
+        </TouchableWithoutFeedback>
     );
 };
 
