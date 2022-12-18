@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
+import {Modal, StyleSheet, Text, Pressable, View, Image, TouchableWithoutFeedback, Keyboard} from "react-native";
 import { COLOR, SIZES } from "../../Component/Constants/Theme";
 import CustomButton from "../../Component/Element/CustomButton";
 import CustomInputV1 from "../../Component/Element/CustomInputV1";
+import img_content2 from '../../assets/icon/img_content2.jpg'
+import CheckBox from "@react-native-community/checkbox";
+
 const DonateScreen = ({ navigation }) => {
-    const [username, setUsername] = useState('');
+    const [isSelected, setSelection] = useState(false);
     const [password, setPassword] = useState('');
     const [WaitForLogin, setWaitForLogin] = useState(false);
     const [donateAmount, setDonateAmount] = useState('0');
@@ -29,7 +32,7 @@ const DonateScreen = ({ navigation }) => {
             donateOptionText: {
                 fontSize: SIZES.h4,
                 fontWeight: '500'
-            }
+            },
         });
 
         return (
@@ -39,11 +42,12 @@ const DonateScreen = ({ navigation }) => {
         );
     }
     return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.centeredView}>
             <View style={styles.header}>
                 <Pressable
                     style={styles.goback}
-                    onPress={() => { navigation.navigate('HDBankAccount') }}>
+                    onPress={() => {}}>
                     <Image
                         style={styles.gobackIcon}
                         source={require('../../assets/icon/arrow-to-left.jpg')}
@@ -55,7 +59,18 @@ const DonateScreen = ({ navigation }) => {
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <View style={styles.flexLogo}>
-                        <Image style={styles.logo} source={require('../../assets/icon/AccountScreenICon/anh-bia-cover-anh-bia-facebook-cover-2.jpg')} />
+                        <Image style={styles.logo} source={require('../../assets/icon/img_content2.jpg')} />
+                        <View style={{width: '100%', height: 50, position: 'absolute', marginTop: 170}}>
+                            <Image source={require('../../assets/icon/phuden.jpg')} style={{height: 30, opacity: 0.4}}/>
+                            <Text style={{position: 'absolute',
+                                        fontSize: 18,
+                                        fontWeight:'500',
+                                        color: 'white',
+                                        fontStyle: 'italic',
+                                        textAlign: 'center',
+                                        width: '100%',
+                                        marginLeft: 9}}>GÂY QUỸ GIÚP ĐỠ NGƯỜI DÂN MIỀN TRUNG</Text>
+                        </View>
                     </View>
                     <View  style={styles.flexInput}>
                         <CustomInputV1
@@ -72,21 +87,30 @@ const DonateScreen = ({ navigation }) => {
                             <DonateOption amount={'200.000'} onPress={() => setDonateAmount('200.000')} />
                             <DonateOption amount={'500.000'} onPress={() => setDonateAmount('500.000')} />
                         </View>
+                        <View style = {{marginTop: 10}}>
+                            <CustomInputV1
+                                label={'Lời nhắn'}
+                                maxLength={30}
+                                onChangeText={(text) => setPassword(text)}
+                                placeholder={'Gửi lời nhắn ...'}
+                            />
+                        </View>
                         
                     </View>
+
                     <View  style={styles.flexDonateBtn}>
                         <CustomButton
                             title='Ủng hộ'
                             isLoading={WaitForLogin}
-                            onPress={() => { Donate() }}
+                            onPress={()=>{navigation.navigate('Success')}}
                         />
                     </View>
-
 
                 </View>
             </View>
 
         </View>
+        </TouchableWithoutFeedback>
     );
 };
 
@@ -130,8 +154,8 @@ const styles = StyleSheet.create({
     logo: {
         width: SIZES.width,
         height: 200,
-        marginBottom: 30,
-        resizeMode: 'cover',
+        marginBottom: 10,
+        resizeMode: 'cover'
     },
 
     modalView: {
@@ -153,6 +177,7 @@ const styles = StyleSheet.create({
     flexDonate: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        justifyContent: 'center'
     },
 
 });

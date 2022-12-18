@@ -7,6 +7,7 @@ import UserService from '../../Service/api/UserService';
 import { styles } from './SignupScreenStyle';
 import { COLOR, SIZES } from '../../Component/Constants/Theme';
 import { inline } from 'react-native-web/dist/cjs/exports/StyleSheet/compiler';
+import { useRoute } from '@react-navigation/native';
 import './global'
 
 
@@ -74,6 +75,12 @@ const styleConfirm = StyleSheet.create({
 });
 
 const SignupConfirmMail = ({navigation}) => {
+    const accessPageSignupFollowType = () =>global.value=='Single' ? navigation.navigate('SignupSingle',{
+        email: route.params.email
+    }) : navigation.navigate('SignupOrg',{
+        email: route.params.email
+    });
+    const route = useRoute();
     let textInput = useRef(null);
     const lengthInput = 6;
     const [internalVal, setInternal] = useState('');
@@ -124,7 +131,7 @@ const SignupConfirmMail = ({navigation}) => {
                 </View>
             </KeyboardAvoidingView>
             <View style = {styleConfirm.containerView}>
-                <CustomButtonVerify title={'Xác thực'} onPress= {() =>global.value=='Single' ? navigation.navigate('SignupSingle') : navigation.navigate('SignupOrg')}/>
+                <CustomButtonVerify title={'Xác thực'} onPress= {()=>accessPageSignupFollowType()}/>
                 <CustomButtonTry title={'Gửi lại mã'}/>
             </View>
         </ScrollView>

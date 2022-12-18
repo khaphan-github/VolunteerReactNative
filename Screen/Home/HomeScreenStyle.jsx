@@ -5,7 +5,7 @@ import { BUTTON_COLOR, TEXT_COLOR } from '../../Component/Constants/Color';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#DEDBEE',
     },
     statusbar:{
         display: 'flex',
@@ -24,30 +24,24 @@ export const styles = StyleSheet.create({
     stories:{
         flex: 1,
         backgroundColor:'white',
-        paddingTop: 20,
+        paddingVertical: 7
     },
     borderStories_img:{
-        width: 85, 
+        width: 84, 
         marginLeft: 5, 
         backgroundColor: '#D65D42', 
         borderRadius: 60, 
-        height: 85, 
+        height: 84, 
         justifyContent: 'center'}
     ,
     stories_img:{
-        height: 80,
-        width: 80,
+        height: 78,
+        width: 78,
         backgroundColor: "#c5c5c7",
         borderRadius: 50,
-        marginLeft: 2.5,
+        marginLeft: 3.5,
         borderWidth: 3,
         borderColor: 'white'
-    },
-    stories_name:{
-        textAlign : 'center',
-        fontSize: 12, 
-        margin: 8,
-        width: 75
     },
     addbtnStoriesContainer:{
         marginTop: 55,
@@ -68,6 +62,7 @@ export const styles = StyleSheet.create({
     }
     ,
     content:{
+        flex: 1,
         paddingBottom: 10
     }
     ,
@@ -76,7 +71,7 @@ export const styles = StyleSheet.create({
         height: 540,
         width: '100%',
         backgroundColor: 'white',
-        marginVertical: 5,
+        marginVertical: 2,
         
     },
     header: {
@@ -165,10 +160,10 @@ export const styles = StyleSheet.create({
     }
     ,
     participateContainer:{
+        flex: 1,
         display: 'flex',
         flexDirection:'row',
-        justifyContent: 'space-between',
-        height: 40
+        justifyContent: 'space-between'
     }
     ,
     participateText: {
@@ -177,27 +172,25 @@ export const styles = StyleSheet.create({
     },
     participateTextBold:{
         // fontFamily: 'Roboto_900Black',
-        marginLeft: 105,
         fontSize: 17,
-        marginTop: 8,
-        fontWeight: '500'
+        fontWeight: '500',
+        marginLeft: 100
     },
     participateTextLight:{
         // fontFamily: Roboto_300Light,
         fontSize: 17,
-        marginTop: 8
     }
     ,
     participatePeople:{
         display: 'flex',
         flexDirection: 'column',
+        justifyContent:'center'
     }
     ,
     participateAvt:{
-        marginTop: 10,
         marginLeft: 10,
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
 
     participateAvtChil1:{
@@ -223,14 +216,15 @@ export const styles = StyleSheet.create({
     }
     ,
     avt:{
-        height: 30,
-        width: 30,
+        height: 25,
+        width: 25,
         backgroundColor: "#c5c5c7",
-        borderRadius: 25
+        borderRadius: 25, 
+
     },
     dot:{
-        height: 30,
-        width: 30,
+        height: 25,
+        width: 25,
         backgroundColor: '#9CA8B4',
         justifyContent: 'center',
         borderRadius: 25,
@@ -239,11 +233,12 @@ export const styles = StyleSheet.create({
     }
     ,
     containerButton: {
-        height: 38,
-        width: 100,
-        marginRight: 10,
-        borderRadius: 9,
-        marginTop: 4,
+        flex: 1,
+        height: '100%',
+        width: 20,
+        flexDirection:'row',
+        justifyContent: 'center',
+        borderRadius: 5
     },
     titleButton:{
        // fontFamily: 'Roboto_900Black',
@@ -257,6 +252,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         display: 'flex',
         flexDirection:'row',
+        marginVertical: 5,
     }
     ,
     icon: {
@@ -272,7 +268,7 @@ export const styles = StyleSheet.create({
     like: {
         width: 24,
         height: 24,
-        margin: 5
+        marginLeft: 5
     }
 
 });

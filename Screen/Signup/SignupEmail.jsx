@@ -1,11 +1,14 @@
+import { useRoute } from '@react-navigation/native';
 import React,{useState} from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Colors, RadioButton } from 'react-native-paper';
 import CustomButton from '../../Component/Element/CustomButton';
 import CustomInput from '../../Component/Element/CustomInput';
+import CustomAlert from '../../Component/Element/CustomAlert';
 import UserService from '../../Service/api/UserService';
 import { styles } from './SignupScreenStyle';
 import Auth from './../Login/Auth';
+import { enableExpoCliLogging } from 'expo/build/logs/Logs';
 
 const phonenumberIcon = '../../assets/icon/phonenumberIcon.png';
 const phoneIcon = '../../assets/icon/passwordIcon.jpg';
@@ -17,10 +20,20 @@ const arow = '../../assets/icon/arrow-to-left.jpg';
 const SignupEmail = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [emailErrorMessage, setemailErrorMessage] = useState('');
-    const accessPage = () => navigation.navigate('SignupConfirmMail');
+    const accessPage = () =>global.value=='Single' ? navigation.navigate('SignupSingle',{
+        email: email
+    }) : navigation.navigate('SignupOrg',{
+        email: email
+    });
     const accessPage2 = () => navigation.navigate('Login')
     const [ButtonPress, setButtonPress] = useState('');
     
+    const fistname = "KIM KHANH";
+    const lastname = "LE";
+    const phonenumber = "0907025989";
+    const type = "Single";
+    const password = "123456Kk*"
+
     
     const showEmailErrorMessage = (_email) => {
         if (_email.length === 0) {
@@ -35,7 +48,7 @@ const SignupEmail = ({navigation}) => {
     }
     
     const validateToGetAuth = () => {
-        const isValidEmail_ = Auth.isValidEmail(username) === true;
+        const isValidEmail_ = Auth.isValidEmail(email) === true;
         if (isValidEmail_ ){
             return true;
         }
@@ -48,23 +61,25 @@ const SignupEmail = ({navigation}) => {
         }
     }
 
-    const authenticate = async () => {
-        setButtonPress(true);
-        presWhenNoTextChange();
-        if (validateToGetAuth() === true) {
-            await Auth.getAuth(username, password).then((res) => {
-                if (res.status === 200 && res.data.token.length !== 0) {
-                    AsyncStoraged.storeData(res.data.token);
-                    navigation.navigate('Home');
-                }
-            }).catch(error => {
-                setPasswordErrorMessage('Sai tên đăng nhập hoặc mật khẩu!');
-                setusernameErrorMessage(' ');
-                console.error(error);
-            });
-        }
-        setButtonPress(false);
-    };
+    async function signUp(){
+        
+        let item ={fistname, lastname, phonenumber, type,email, password}
+        let result = await fetch("https://deloy-springboot-mongodb.herokuapp.com/api/v1/users/register", {
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(item),
+            headers: {
+                "Content-Type" : 'application/json',
+                "Accept": '*/*'
+            }
+        })
+        
+        result = await result.json();
+        console.log("result: ", result)
+    }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -86,7 +101,7 @@ const SignupEmail = ({navigation}) => {
                    error={emailErrorMessage.length !== 0}
                    errorMessage={emailErrorMessage}
                     />
-                <CustomButton onPress={() => {authenticate(); accessPage()}} title='Tiếp tục' />
+                <CustomButton onPress={() => {accessPage()}} title='Tiếp tục' />
             </ScrollView>
         </TouchableWithoutFeedback>
     );

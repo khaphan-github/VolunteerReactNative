@@ -9,6 +9,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import Auth from './Auth';
 import { styles } from './LoginSceenStyle';
 import UserService from '../../Service/api/UserService';
+import { useNavigation } from '@react-navigation/native';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -22,8 +23,13 @@ const fbIcon = '../../assets/icon/2021_Facebook_icon.svg.jpg';
 const googleIcon = '../../assets/icon/Google__G__Logo.svg.jpg';
 const arow = '../../assets/icon/arrow-to-left.jpg';
 
+
+
 // rncs khaphan01@gmail.com khaphan001
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
+    const navigation = useNavigation(); 
+    const accessPageSignupEmail = () => navigation.navigate('SignupType');
+    const accessPageIntroSlider = () => navigation.navigate('IntroSlider');
     const [username, setUsername] = useState('');
     const [usernameErrorMessage, setusernameErrorMessage] = useState('');
 
@@ -123,9 +129,7 @@ const LoginScreen = ({ navigation }) => {
                 <View style={styles.container}>
                     <View style={styles.flForm}>
                         <View style={styles.backButton}>
-                            <TouchableOpacity onPress={() => {
-                                navigation.navigate('IntroSlider');
-                            }}>
+                            <TouchableOpacity onPress={() => accessPageIntroSlider()}>
                                 <Image source={require(arow)} style={styles.arrowReturn} />
                             </TouchableOpacity>
                         </View>
@@ -180,7 +184,7 @@ const LoginScreen = ({ navigation }) => {
                             </Pressable>
                             <Text style={styles.footerText}>
                                 Bạn chưa có tài khoản?
-                                <Text style={styles.regis} onPress={() => navigation.navigate("Signup")}> Đăng ký</Text>
+                                <Text style={styles.regis} onPress={() => accessPageSignupEmail()}> Đăng ký</Text>
                             </Text>
                         </View>
                     </View>
