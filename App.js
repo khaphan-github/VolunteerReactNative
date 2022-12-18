@@ -8,17 +8,19 @@ import DonateScreen from './Screen/Donate/DonateScreen';
 import { HDBankAuthStack } from './Screen/HDBank/HDBankAuthStack';
 import HDBankLoginSreen from './Screen/HDBank/HDBankLoginScreenModel';
 import HDBankRegisterScreen from './Screen/HDBank/HDBankRegisterScreenInfo';
-import LoginScreen from './Screen/Signup/SignupScreen';
+import Login from './Screen/Login/LoginScreen';
 import AsyncStoraged from './Service/client/AsyncStoraged';
-
+import Home from './Screen/Home/Home'
+import PostScreen from './Screen/Post/PostScreen'
 const App = () => {
   return (
-    <AppNavigation navigate={<HDBankAuthStack/>}></AppNavigation>
-    //  <LoginScreen></LoginScreen>
-    //<HDBankRegisterScreen/>
-    //  <HDBankLoginSreen isModelVisible={true}/>
-   //  <DonateScreen></DonateScreen>
-
+    // <AppNavigation navigate={<HDBankAuthStack/>}></AppNavigation>
+    <NavigationContainer>
+      <MainStackNavigator>
+      <Home></Home>
+      </MainStackNavigator>
+        
+    </NavigationContainer>
   );
 };
 

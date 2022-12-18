@@ -9,6 +9,8 @@ import SignupSingle from "../Screen/Signup/SignupSingle";
 import SignupOrg from "../Screen/Signup/SignupOrg";
 import Home from "../Screen/Home/Home";
 import Tabs from './tabHome';
+import DonateScreen from "../Screen/Donate/DonateScreen";
+import Success from "../Screen/Donate/Success";
 
 const Stack = createStackNavigator();
 
@@ -17,14 +19,10 @@ const MainStackNavigator = () => {
     <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="SignupType" component={SignupType} /> 
-      <Stack.Screen name="SignupEmail" component={SignupEmail} />
-      <Stack.Screen name="SignupConfirmMail" component={SignupConfirmMail} /> 
-      <Stack.Screen name="SignupSingle" component={SignupSingle} />
-      <Stack.Screen name="SignupOrg" component={SignupOrg} />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Bottom" component={Tabs}/>
+      <Stack.Screen name="Donate" component={DonateScreen} />
+      <Stack.Screen name="Success" component={Success} />
+
     </Stack.Navigator>
   );
 }

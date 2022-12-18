@@ -7,6 +7,7 @@ import CustomInput from '../../Component/Element/CustomInput';
 import UserService from '../../Service/api/UserService';
 import { styles } from './SignupScreenStyle';
 import './SignupType';
+import { useRoute } from '@react-navigation/native';
 
 const phonenumberIcon = '../../assets/icon/phonenumberIcon.png';
 const phoneIcon = '../../assets/icon/passwordIcon.jpg';
@@ -18,8 +19,9 @@ const arow = '../../assets/icon/arrow-to-left.jpg';
 
 
 const SignupSingle = ({navigation}) => {
-    const [email, setEmail] = useState('');
-
+    const route = useRoute();
+    const email = route.params.email;
+    const type = 'Single';
     const [password, setPassword] = useState('');
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
@@ -32,8 +34,7 @@ const SignupSingle = ({navigation}) => {
     const [phonenumber, setPhonenumber] = useState('');
     const [phonenumberErrorMessage, setPhonenumberErrorMessage] = useState('');
     
-    const accessPageHome = navigation.navigate('Home');
-    const accessPageLogin = navigation.navigate('Home');
+    const accessPageLogin = navigation.navigate('Login');
 
     const showMessagePwd = (_password ) => {
         if (_password.length === 0) {
@@ -68,7 +69,22 @@ const SignupSingle = ({navigation}) => {
         }
     }   
 
-    
+    async function signUp(){
+        let item ={firstname, lastname, phonenumber, type,email, password}
+        console.log(item);
+        let result = await fetch("https://deloy-springboot-mongodb.herokuapp.com/api/v1/users/register", {
+            method: 'POST',
+            body: JSON.stringify(item),
+            headers: {
+                "Content-Type" : 'application/json',
+                "Accept": '*/*'
+            }
+        })
+        result = await result.json();
+        if(result.data.status === "201 CREATED")
+            alert('Đăng ký thành công!');
+        console.log("result: ", result)
+    }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -92,7 +108,7 @@ const SignupSingle = ({navigation}) => {
                     />
                 <CustomInput
                     onChangeText={(lastnameText) => {
-                        setPassword(lastnameText);
+                        setLastname(lastnameText);
                         showMessageLs(lastnameText);
                     }}
                     icon={require(userIcon)}
@@ -102,7 +118,7 @@ const SignupSingle = ({navigation}) => {
                     />
                 <CustomInput
                     onChangeText={(phonenumberText) => {
-                        setPassword(phonenumberText);
+                        setPhonenumber(phonenumberText);
                         showMessagePn(phonenumberText);
                     }}
                     icon={require(phonenumberIcon)}
@@ -122,12 +138,11 @@ const SignupSingle = ({navigation}) => {
                     errorMessage={passwordErrorMessage}
                     />
                 
-                <CustomButton title='Đăng ký' onpress = {() => accessPageHome()}/> 
-
+                <CustomButton onPress={() => {signUp(); alert('Đăng ký thành công!');}} title='Đăng ký' />
                 <View style={styles.footer}>
                     <Text style={styles.footerText}>
                         Bạn đã có tài khoản?
-                        <Text style={styles.login} onPress={() => accessPageLogin()}> Đăng nhập</Text>
+                        <Text style={styles.login}> Đăng nhập</Text>
                     </Text>
                 </View>
             </ScrollView>
