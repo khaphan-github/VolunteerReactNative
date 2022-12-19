@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "VolunteerReactNativeApps",
-    "slug": "VolunteerReactNativeApps",
+    "name": "Việc tử tế",
+    "slug": "viec-tu-te",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon/logo.jpg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon/Spl.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,16 +18,34 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.VolunteerReactNativeApps"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon/logo.jpg",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.VolunteerReactNativeApps",
+      "softwareKeyboardLayoutMode": "pan",
+      "versionCode": 1
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/icon/logo.jpg"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fbbaa2c1-afb6-49a6-bf88-0af0e0d2fc75"
+      }
+    },
+    "scheme": "https://auth.expo.io/@khaphanbe/viec-tu-te",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
   }
 }
