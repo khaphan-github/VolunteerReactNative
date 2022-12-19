@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { BUTTON_COLOR, TEXT_COLOR } from '../../Component/Constants/Color';
+import { COLOR, SIZES } from '../../Component/Constants/Theme';
 //import { FONT_FAMILY } from '../../Component/Constants/Font';
 
 export const styles = StyleSheet.create({
@@ -7,83 +8,86 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#DEDBEE',
     },
-    statusbar:{
+    statusbar: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 5,
-        backgroundColor: 'white'
+        marginVertical: 7,
+        backgroundColor: 'white',
     },
-    nameApp:{
-       // fontFamily: 'Roboto_900Black',
+    nameApp: {
+        // fontFamily: 'Roboto_900Black',
         fontWeight: '600',
         fontSize: 30,
-        color:'red', 
+        color: 'red',
         paddingLeft: 10,
     },
-    stories:{
-        flex: 1,
-        backgroundColor:'white',
-        paddingVertical: 7
+    option: {
+        justifyContent: 'center',
     },
-    borderStories_img:{
-        width: 84, 
-        marginLeft: 5, 
-        backgroundColor: '#D65D42', 
-        borderRadius: 60, 
-        height: 84, 
-        justifyContent: 'center'}
+    stories: {
+        marginVertical: 10,
+        flexDirection: 'row',
+        marginHorizontal: 5,
+    },
+    borderStories_img: {
+        width: 60,
+        marginLeft: 5,
+        backgroundColor: '#D65D42',
+        borderRadius: 60,
+        height: 60,
+        justifyContent: 'center'
+    }
     ,
-    stories_img:{
-        height: 78,
-        width: 78,
+    stories_img: {
+        height: 65,
+        width: 65,
         backgroundColor: "#c5c5c7",
         borderRadius: 50,
         marginLeft: 3.5,
         borderWidth: 3,
-        borderColor: 'white'
+        borderColor: 'white',
+        marginHorizontal: 5,
+
     },
-    addbtnStoriesContainer:{
-        marginTop: 55,
+    addbtnStoriesContainer: {
         backgroundColor: '#4c68d7',
-        marginLeft: 55,
         width: 23,
         height: 23,
-        borderRadius: 50, 
+        marginLeft: 45,
+        marginTop: 42.5,
+        borderRadius: 15,
         borderWidth: 1.5,
         borderColor: '#ffffff',
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
     ,
-    addbtnStories:{
+    addbtnStories: {
         color: '#ffffff',
         textAlign: 'center',
         fontSize: 12
     }
     ,
-    content:{
+    content: {
         flex: 1,
         paddingBottom: 10
-    }
-    ,
-    post:{
+    },
+    post: {
         flex: 1,
-        height: 540,
-        width: '100%',
+        marginHorizontal: 0,
         backgroundColor: 'white',
-        marginVertical: 2,
-        
+        marginVertical: 4,
     },
     header: {
         display: 'flex',
         flexDirection: 'row',
-        padding: 3,
-        alignItems: 'center' 
+        alignItems: 'center'
     }
     ,
     profile: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        flex: 1,
     }
     ,
 
@@ -92,23 +96,30 @@ export const styles = StyleSheet.create({
         width: 50,
         backgroundColor: "#c5c5c7",
         borderRadius: 25,
-        margin: 10
+        marginHorizontal: 10,
+        marginVertical: 10,
     },
-
     profile_details: {
-        height: 45,
-        paddingTop: 24,
         display: 'flex',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center'
     },
-    author:{
-        // fontFamily: Roboto_900Black,
+    flextHeader: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    more: {
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        flex: 0.5,
+        marginHorizontal: 10,
+    },
+    author: {
         fontWeight: '600',
         fontSize: 16
     },
     time: {
-        fontSize: 14,
-        paddingTop: 5,
+        fontSize: 12,
+        marginVertical: 3,
         opacity: 0.6
     },
     img: {
@@ -117,112 +128,106 @@ export const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     text: {
-        width: '100%',
-        height: 70,
         paddingLeft: 10,
         paddingTop: 10,
-        
     },
     textHeader: {
         fontSize: 16,
-       //  fontFamily: 'Roboto_900Black',
+        marginBottom: 6,
         fontWeight: 'bold'
     },
-    textDesc:{
-        // fontFamily: 'Roboto_300Light',
+    textDesc: {
         paddingRight: 5,
-        
     }
     ,
-    progressBar:{
+    progressBar: {
         marginTop: 10,
         height: 50,
-        marginLeft: 10
+        marginHorizontal: 10,
+        marginRight: 10,
     },
-    progressbarText:{
-        display: 'flex',
-        flexDirection: 'row'
-    }
-    ,
-    progressbarTextLight:{
-        fontSize: 17,
-        color: '#FF493C',
-        paddingBottom: 10,
-        // fontFamily: 'Roboto_300Light',
-    },
-    progressbarTextBold:{
-        // fontFamily: 'Roboto_900Black',
-        fontWeight: '500',
-        fontSize: 17,
-        color: '#FF493C',
-        paddingBottom: 10,
-        
-    }
-    ,
-    participateContainer:{
-        flex: 1,
-        display: 'flex',
-        flexDirection:'row',
-        justifyContent: 'space-between'
-    }
-    ,
-    participateText: {
-        display: 'flex',
-        flexDirection:'row'
-    },
-    participateTextBold:{
-        // fontFamily: 'Roboto_900Black',
-        fontSize: 17,
-        fontWeight: '500',
-        marginLeft: 100
-    },
-    participateTextLight:{
-        // fontFamily: Roboto_300Light,
-        fontSize: 17,
-    }
-    ,
-    participatePeople:{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent:'center'
-    }
-    ,
-    participateAvt:{
-        marginLeft: 10,
+    progressbarText: {
         display: 'flex',
         flexDirection: 'row',
+    }
+    ,
+    progressbarTextLight: {
+        fontSize: 16,
+        color: '#FF493C',
+        paddingBottom: 10,
     },
+    progressbarTextBold: {
+        fontWeight: '500',
+        fontSize: 16,
+        color: '#FF493C',
+        paddingBottom: 10,
 
-    participateAvtChil1:{
-        position: "absolute",
-        flexDirection:"row"
+    }
+    ,
+    participateContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 10,
     },
-    participateAvtChil2:{
+    colPaticipaceFlex: {
+        flex: 1,
+        justifyContent: 'space-between',
+    },
+    participateText: {
+        flex: 10,
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    participateTextBold: {
+        // fontFamily: 'Roboto_900Black',
+        fontSize: 15,
+        fontWeight: '500',
+    },
+    participateTextLight: {
+        // fontFamily: Roboto_300Light,
+        fontSize: 15,
+    }
+    ,
+    participatePeople: {
+        flex: 1.7,
+        justifyContent: 'center',
+
+    },
+    avt: {
+        backgroundColor: 'red',
+    },
+    participateAvt: {
+    },
+    joinedText: {
+    },
+    participateAvtChil1: {
         position: "absolute",
-        flexDirection:"row",
+    },
+    participateAvtChil2: {
+        position: "absolute",
+        marginLeft: 18
+    }
+    ,
+    participateAvtChil3: {
+        position: "absolute",
         marginLeft: 20
     }
     ,
-    participateAvtChil3:{
+    participateAvtChildDot: {
         position: "absolute",
-        flexDirection:"row",
+        flexDirection: "row",
         marginLeft: 20
     }
     ,
-    participateAvtChildDot:{
-        position: "absolute",
-        flexDirection:"row",
-        marginLeft: 20
-    }
-    ,
-    avt:{
+    avt: {
         height: 25,
         width: 25,
         backgroundColor: "#c5c5c7",
-        borderRadius: 25, 
+        borderRadius: 25,
 
     },
-    dot:{
+    dot: {
         height: 25,
         width: 25,
         backgroundColor: '#9CA8B4',
@@ -232,43 +237,79 @@ export const styles = StyleSheet.create({
         position: 'absolute'
     }
     ,
-    containerButton: {
-        flex: 1,
-        height: '100%',
-        width: 20,
-        flexDirection:'row',
+    joinBtn: {
+        flex: 3,
+        alignItems: 'flex-end',
         justifyContent: 'center',
-        borderRadius: 5
     },
-    titleButton:{
-       // fontFamily: 'Roboto_900Black',
+    containerButton: {
+        borderRadius: 3,
+    },
+
+    titleButton: {
+        // fontFamily: 'Roboto_900Black',
         fontWeight: '700',
         color: 'white',
-        fontSize: 16,
+        fontSize: 15,
         textAlign: 'center',
     }
     ,
     footer: {
+        flex: 1,
         justifyContent: 'space-between',
         display: 'flex',
-        flexDirection:'row',
-        marginVertical: 5,
+        flexDirection: 'row',
+        marginHorizontal: 10,
+        paddingBottom: 10,
     }
     ,
     icon: {
         display: 'flex',
-        marginRight: 5
-    }
-    ,
+    },
+    flexIcon: {
+        flexDirection: 'row',
+    },
     icon_like: {
-        display: 'flex',
-        flexDirection:'row',
+        justifyContent: 'center',
     }
     ,
     like: {
         width: 24,
         height: 24,
-        marginLeft: 5
-    }
+        marginRight: 18,
+        marginLeft: 2,        
+    },
+    save: {
+        width: 24,
+        height: 24,
+    },
 
+    navigation: {
+        height: 60,
+        marginBottom: 5,
+        backgroundColor: 'white',
+    },
+    flexFooter: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    navigateBtn: {
+        padding: 10,
+        borderRadius: 60,
+    },
+    navigationElement: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    iconbtn: {
+        width: 32,
+        height: 32,
+        opacity: 0.7,
+    },
+    mainIcon: {
+        width: 32,
+        height: 32, 
+    }
 });
