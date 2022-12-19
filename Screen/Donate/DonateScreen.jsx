@@ -1,16 +1,28 @@
-import React, { useState } from "react";
-import {Modal, StyleSheet, Text, Pressable, View, Image, TouchableWithoutFeedback, Keyboard} from "react-native";
+import React, { useState, useEffect } from "react";
+import { Modal, StyleSheet, Text, Pressable, View, Image, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { COLOR, SIZES } from "../../Component/Constants/Theme";
 import CustomButton from "../../Component/Element/CustomButton";
 import CustomInputV1 from "../../Component/Element/CustomInputV1";
 import img_content2 from '../../assets/icon/img_content2.jpg'
 import CheckBox from "@react-native-community/checkbox";
 
-const DonateScreen = ({ navigation }) => {
+const DonateScreen = ({ navigation, route }) => {
     const [isSelected, setSelection] = useState(false);
     const [password, setPassword] = useState('');
     const [WaitForLogin, setWaitForLogin] = useState(false);
     const [donateAmount, setDonateAmount] = useState('0');
+    const [postImage, setPostImage] = useState();
+    const [PostTitle, setPostName] = useState();
+    const [PostId, setPostId] = useState();
+
+    useEffect(() => {
+        if (route.params?.postID) {
+            setPostId(route.params?.postID);
+            setPostName(route.params?.postName);
+            setPostImage(route.params?.postImage);
+        }
+    }, [route.params?.postID]);
+
     const HDBankLogin = async () => {
         setWaitForLogin(true);
         navigation.navigate('HDBankValidateOTP');
@@ -41,75 +53,84 @@ const DonateScreen = ({ navigation }) => {
             </Pressable>
         );
     }
+
+    const donate = async () => {
+        // Call donate Screen.
+        // Call confirm donate screen,
+        navigation.navigate('Success')
+    }
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.centeredView}>
-            <View style={styles.header}>
-                <Pressable
-                    style={styles.goback}
-                    onPress={() => {}}>
-                    <Image
-                        style={styles.gobackIcon}
-                        source={require('../../assets/icon/arrow-to-left.jpg')}
-                    />
-                </Pressable>
-                <Text style={styles.headerName}>
-                </Text>
-            </View>
             <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <View style={styles.flexLogo}>
-                        <Image style={styles.logo} source={require('../../assets/icon/img_content2.jpg')} />
-                        <View style={{width: '100%', height: 50, position: 'absolute', marginTop: 170}}>
-                            <Image source={require('../../assets/icon/phuden.jpg')} style={{height: 30, opacity: 0.4}}/>
-                            <Text style={{position: 'absolute',
-                                        fontSize: 18,
-                                        fontWeight:'500',
-                                        color: 'white',
-                                        fontStyle: 'italic',
-                                        textAlign: 'center',
-                                        width: '100%',
-                                        marginLeft: 9}}>GÂY QUỸ GIÚP ĐỠ NGƯỜI DÂN MIỀN TRUNG</Text>
-                        </View>
-                    </View>
-                    <View  style={styles.flexInput}>
-                        <CustomInputV1
-                            label={'Số tiền ủng hộ'}
-                            maxLength={30}
-                            onChangeText={(text) => setDonateAmount(text)}
-                            value={donateAmount}
+                <View style={styles.header}>
+                    <Pressable
+                        style={styles.goback}
+                        onPress={() => {navigation.navigate('Home')}}>
+                        <Image
+                            style={styles.gobackIcon}
+                            source={require('../../assets/icon/arrow-to-left.jpg')}
                         />
-                        <View style={styles.flexDonate}>
-                            <DonateOption amount={'10.000'} onPress={() => setDonateAmount('10.000')} />
-                            <DonateOption amount={'20.000'} onPress={() => setDonateAmount('20.000')} />
-                            <DonateOption amount={'50.000'} onPress={() => setDonateAmount('50.000')} />
-                            <DonateOption amount={'100.000'} onPress={() => setDonateAmount('100.000')} />
-                            <DonateOption amount={'200.000'} onPress={() => setDonateAmount('200.000')} />
-                            <DonateOption amount={'500.000'} onPress={() => setDonateAmount('500.000')} />
+                    </Pressable>
+                    <Text style={styles.headerName}>
+                        Quyên góp
+                    </Text>
+                </View>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={styles.flexLogo}>
+                            <Image style={styles.logo} source={{ uri: postImage }} />
+                            <View style={{ width: '100%', position: 'absolute' }}>
+                                <Image source={require('../../assets/icon/phuden.jpg')} style={{ height: 30, opacity: 0.4 }} />
+                                <Text style={{
+                                    position: 'absolute',
+                                    fontSize: 18,
+                                    fontWeight: '500',
+                                    color: 'white',
+                                    fontStyle: 'italic',
+                                    textAlign: 'center',
+                                    width: '100%',
+                                    marginLeft: 9
+                                }}>{PostTitle}</Text>
+                            </View>
                         </View>
-                        <View style = {{marginTop: 10}}>
+                        <View style={styles.flexInput}>
                             <CustomInputV1
-                                label={'Lời nhắn'}
+                                label={'Số tiền ủng hộ'}
                                 maxLength={30}
-                                onChangeText={(text) => setPassword(text)}
-                                placeholder={'Gửi lời nhắn ...'}
+                                onChangeText={(text) => setDonateAmount(text)}
+                                value={donateAmount}
+                            />
+                            <View style={styles.flexDonate}>
+                                <DonateOption amount={'10.000'} onPress={() => setDonateAmount('10.000')} />
+                                <DonateOption amount={'20.000'} onPress={() => setDonateAmount('20.000')} />
+                                <DonateOption amount={'50.000'} onPress={() => setDonateAmount('50.000')} />
+                                <DonateOption amount={'100.000'} onPress={() => setDonateAmount('100.000')} />
+                                <DonateOption amount={'200.000'} onPress={() => setDonateAmount('200.000')} />
+                                <DonateOption amount={'500.000'} onPress={() => setDonateAmount('500.000')} />
+                            </View>
+                            <View style={{ marginTop: 10 }}>
+                                <CustomInputV1
+                                    label={'Lời nhắn'}
+                                    maxLength={30}
+                                    onChangeText={(text) => setPassword(text)}
+                                    placeholder={'Gửi lời nhắn ...'}
+                                />
+                            </View>
+
+                        </View>
+
+                        <View style={styles.flexDonateBtn}>
+                            <CustomButton
+                                title='Ủng hộ'
+                                isLoading={WaitForLogin}
+                                onPress={() => { donate() }}
                             />
                         </View>
-                        
-                    </View>
 
-                    <View  style={styles.flexDonateBtn}>
-                        <CustomButton
-                            title='Ủng hộ'
-                            isLoading={WaitForLogin}
-                            onPress={()=>{navigation.navigate('Success')}}
-                        />
                     </View>
-
                 </View>
-            </View>
 
-        </View>
+            </View>
         </TouchableWithoutFeedback>
     );
 };
@@ -119,6 +140,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: 'white'
     },
     label: {
         fontSize: SIZES.h4,
@@ -127,7 +149,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 45,
+        marginTop: 20,
     },
     goback: {
         flex: 0.2,
@@ -139,8 +161,9 @@ const styles = StyleSheet.create({
     },
     headerName: {
         flex: 2,
+        fontSize: SIZES.h4,
+        fontWeight: 'bold'
     },
-
     flexLogo: {
         flex: 1.5,
         alignSelf: 'center',

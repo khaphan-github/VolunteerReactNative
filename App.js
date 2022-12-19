@@ -14,13 +14,13 @@ import Home from './Screen/Home/Home'
 import PostScreen from './Screen/Post/PostScreen'
 const App = () => {
   return (
-    // <AppNavigation navigate={<HDBankAuthStack/>}></AppNavigation>
-    <NavigationContainer>
-      <MainStackNavigator>
-      <Home></Home>
-      </MainStackNavigator>
+    <AppNavigation navigate={<MainStackNavigator/>}></AppNavigation>
+    // <NavigationContainer>
+    //   <MainStackNavigator>
+    //   <Home></Home>
+    //   </MainStackNavigator>
         
-    </NavigationContainer>
+    // </NavigationContainer>
   );
 };
 

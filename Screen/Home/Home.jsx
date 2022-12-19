@@ -1,284 +1,365 @@
 import * as React from 'react';
-import {View, Text, Image, TouchableOpacity, ScrollView, SafeAreaView , StatusBar} from 'react-native';
-import { Colors, RadioButton, Menu, Provider } from 'react-native-paper';
-import CustomButton from '../../Component/Element/CustomButton';
-import CustomInput from '../../Component/Element/CustomInput';
+import { View, Text, Image, TouchableOpacity, ScrollView, SafeAreaView, StatusBar, FlatList, Alert } from 'react-native';
 import { styles } from './../Home/HomeScreenStyle';
 import * as Progress from 'react-native-progress';
 import './../Signup/SignupType';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Antdesign from 'react-native-vector-icons/AntDesign'
-import {Feather} from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 import { Button, ButtonGroup, withTheme } from '@rneui/themed';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { SIZES } from '../../Component/Constants/Theme';
+import { async } from 'q';
+import HomeService from '../../Service/api/HomeService';
+import AsyncStoraged from '../../Service/client/AsyncStoraged';
 
 
-//import {LinearGradient} from 'expo-linear-gradient';
-// import {LinearGradient} from '@shoutem/ui'
-
-const STATUSBAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
-const avt1 = '../../assets/icon/avt1.png';
-const avt2 = '../../assets/icon/avt2.png';
-const avt3 = '../../assets/icon/avt3.png';
-const avt4 = '../../assets/icon/avt4.png';
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 const dot_child = '../../assets/icon/dotChild.png';
 const storage = '../../assets/icon/storage.png';
 const like = '../../assets/icon/like.png';
+const redHeart = '../../assets/icon/icons8-heart-64.png';
 const comment = '../../assets/icon/comment.png';
 const send = '../../assets/icon/send.png';
-const img_content1 = '../../assets/icon/img_content1.jpg';
-const img_content2 = '../../assets/icon/img_content.jpg';
-const img_content3 = '../../assets/icon/img_content2.jpg';
-const img_content4 = '../../assets/icon/img_content1.jpg';
+const more = '../../assets/icon/icons8-more-90.png';
 const khanhimg = '../../assets/icon/khanh.jpg';
-const khaimg = '../../assets/icon/kha.jpg';
-const datimg = '../../assets/icon/dat.jpg';
+const search = '../../assets/icon/icons8-search-100.png';
+const logo = '../../assets/icon/icon.png'
+const user = '../../assets/icon/icons8-male-user-64.png'
+const notifi = '../../assets/icon/notification.png';
+const home = '../../assets/icon/icons8-home-page-96.png'
+const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) => {
+    const PostItem = ({ post, authorAvt, authorName, mainimage, timePost, headerPost, descPost, peopleLeft, joinedList, joinedNumber, postType }) => {
+        const navigation = useNavigation();
+        const isLogin = async () => {
+            const userStored = await AsyncStoraged.getData();
+            console.log(userStored);
+            if (userStored === null) {
+                return false;
+            }
+            return true;
+        }
+        const showAlert = () =>
+            Alert.alert(
+                "Việc Tử Tế",
+                "Hãy đăng nhập để tiếp tục cùng Việc Tử Tế",
+                [
+                    {
+                        text: "Thoát",
+                        style: "ok",
+                    },
+                    {
+                        text: "Đăng nhập",
+                        onPress: () => { navigation.navigate('IntroSlider'); },
+                        style: "cancel",
+                    },
 
-function Post({post}){
-    return(
-        <View>
-            <View style = {styles.post}>
-                <View style = {styles.header}>
-                    <View style= {styles.profile}>
-                        <Image source={post.profile_img} style = {styles.profile_img}/>
-                        <View style = {styles.profile_details}>
-                            <Text style = {styles.author}>{post.author}</Text>
-                            <Text style = {styles.time}>{post.time}</Text>
+                ],
+            );
+        const [heartState, sethearthState] = useState(require(like));
+        const [joinedState, setJoinedState] = useState('Tham Gia');
+        const joinActivities = () => {
+
+            // id; Call screen Join
+            // Limit join in tuan;
+            if (!isLogin()) {
+                showAlert();
+                return;
+            }
+            setJoinedState('Đã tham gia');
+
+        }
+        const likeActivities = async () => {
+            if (!isLogin()) {
+                showAlert();
+                return;
+            }
+            // id, clientID,
+            heartState == require(like) ? sethearthState(require(redHeart)) : sethearthState(require(like))
+        }
+
+        const donateActivities = () => {
+            if (!isLogin()) {
+                showAlert();
+                return;
+            }
+            navigation.navigate('Donate', {
+                postID: post.id,
+                postName: headerPost,
+                postImage: mainimage,
+            });
+        }
+
+        return (
+            <View style={styles.post}>
+                <View style={styles.header}>
+                    <View style={styles.flextHeader}>
+                        <View style={styles.profile}>
+                            <Image source={{ uri: authorAvt }} style={styles.profile_img} />
+                            <View style={styles.profile_details}>
+                                <Text style={styles.author}>{authorName}</Text>
+                                <Text style={styles.time}>{timePost}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.more}>
+                            <TouchableOpacity style={styles.save} onPress={() => { }}>
+                                <Image source={require(more)} style={styles.like} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-                <View style = {styles.content}>
-                    <Image source={post.img} style = {styles.img}/>
-                    <View style = {styles.text}>
-                        <Text style={styles.textHeader}>{post.textHeader}</Text>
-                        <Text style={styles.textDesc}>{post.textDesc}</Text>
+                <View style={styles.content}>
+                    <Image source={{ uri: mainimage }} style={styles.img} />
+                    <View style={styles.text}>
+                        <Text style={styles.textHeader}>{headerPost}</Text>
+                        <Text style={styles.textDesc}>{descPost}</Text>
                     </View>
                     <View style={styles.progressBar}>
                         <View style={styles.progressbarText}>
-                            <Text style={styles.progressbarTextBold}>{post.peopleLeft} người</Text>
+                            <Text style={styles.progressbarTextBold}>Còn {peopleLeft - joinedNumber} người</Text>
                             <Text style={styles.progressbarTextLight}> để hoàn thành mục tiêu</Text>
                         </View>
-                        <Progress.Bar progress={0.3} width={390} color='#FF493C' height={10}  formatText='100' unfilledColor='#F5F5F5' borderColor='#F5F5F5' borderRadius={25}/>
+                        <Progress.Bar progress={joinedNumber / peopleLeft} color='#FF493C' height={8} width={SIZES.width - 20} unfilledColor='#F5F5F5' borderColor='#F5F5F5' borderRadius={25} />
                     </View>
-                    <View style={styles.participateContainer}> 
-                        <View style={styles.participatePeople}>
-                            <View style={styles.participateAvt}>
-                                <View style={styles.participateAvtChil1}>
-                                    <Image source={require(avt1)} style={styles.avt}/>
-                                    <View style={styles.participateAvtChil2}>
-                                        <Image source={require(avt2)} style={styles.avt}/>
+
+                    <View style={styles.participateContainer}>
+                        {/* <View style={styles.participatePeople}>
+                            <View style={styles.avt}>
+                                <View style={styles.participateAvt}>
+                                    <View style={styles.participateAvtChil1}>
+                                        <Image source={{ uri: joinedList[0] }} style={styles.avt} />
+                                        <View style={styles.participateAvtChil2}>
+                                            <Image source={{ uri: joinedList[1] }} style={styles.avt} />
                                             <View style={styles.participateAvtChil3}>
-                                                <Image source={require(avt3)} style={styles.avt}/>
-                                                    <View style={styles.participateAvtChildDot}>
-                                                        <View>
-                                                            <Image source={require(dot_child)} style={styles.avt}/>
-                                                        </View>
-                                                        <View style={styles.dot}>
-                                                            <View style={{opacity: 1}}>
-                                                                <Antdesign name='ellipsis1' color='#ffffff' size={'20'} style={{textAlign:'center', marginLeft:5}}/>
-                                                            </View>
-                                                        </View>
+                                                <Image source={{ uri: joinedList[2] }} style={styles.avt} />
+                                                <View style={styles.participateAvtChildDot}>
+                                                    <View>
+                                                        <Image source={require(dot_child)} style={styles.avt} />
                                                     </View>
-                                            </View>
-                                    </View>
-                                </View>
-                            </View>
-                            
-                            <View style={styles.participateText}>
-                                <Text style={styles.participateTextBold}>{post.peopleOk} Người</Text>
-                                <Text style={styles.participateTextLight}> Đã tham gia</Text>
-                            </View>
-                        </View>
-                        <Button 
-                            title="Tham gia"
-                            buttonStyle={{ display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent:'center',
-                                        borderRadius: 8,
-                                        width: 120,
-                                        height: '100%',
-                                        backgroundColor: 'red',}}
-                            containerStyle={styles.containerButton}
-                            titleStyle={styles.titleButton}
-                            />
-                    </View>
-                </View>
-                <View style = {styles.footer}>
-                    <View style = {styles.icon_like}>
-                        <TouchableOpacity style={styles.like} onPress={() => {}}>
-                        <Image source={require(like)} style={styles.like}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.like} onPress={() => {}}>
-                            <Image source={require(comment)} style={styles.like}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.like} onPress={() => {}}>
-                            <Image source={require(send)} style={styles.like}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View style = {styles.icon}>
-                        <TouchableOpacity style={styles.like} onPress={() => {}}>
-                            <Image source={require(storage)} style={styles.like}/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-        </View>
-    )
-}
-function Stories({img, name}){
-    return(
-        <View>
-            <View style={styles.borderStories_img}>
-                <Image source={img} style = {styles.stories_img}/>
-            </View>
-        </View>
-    )
-}
-
-const Home = () => {
-    const navigation = useNavigation();
-    const[data, setData] = React.useState([
-        {key: '123',author: "Trung tâm bảo trợ trẻ em Tâm Bình", time: "30 phút trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ TRẺ', textDesc: 'Cần người tìm người cần giúp đỡ việc dọn dẹp và tân trang lại trung tâm để đón năm mới',img: require(img_content2), likes: 23, comment: 32, profile_img: require(avt1), peopleOk: '10' , peopleLeft: '50'},
-        {key: '124',author: "Hỗ trợ người già neo đơn", time: "1 giờ trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ', textDesc: 'Cần người tình nguyện tham gia dọn dẹp và tân trang lại trung tâm',img: require(img_content1), likes: 50, comment: 50, profile_img: require(avt2), peopleOk: '20', peopleLeft: '10'},
-        {key: '125',author: "Chùa Bửu Sơn", time: "10 phút trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ', textDesc: 'Cần người tình nguyện tham gia dọn dẹp và tân trang lại trung tâm',img: require(img_content2), likes: 50, comment: 50, profile_img: require(avt3), peopleOk: '20', peopleLeft: '10'},
-        {key: '126',author: "Trung tâm hỗ trợ người khuyết tật", time: "40 giây trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ', textDesc: 'Cần người tình nguyện tham gia dọn dẹp và tân trang lại trung tâm',img: require(img_content3), likes: 23, comment: 32, profile_img: require(avt4), peopleOk: '20' , peopleLeft: '10'},
-        {key: '127',author: "Chùa Gò Kén", time: "1 ngày trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ', textDesc: 'Cần người tình nguyện tham gia dọn dẹp và tân trang lại trung tâm',img: require(img_content4), likes: 50, comment: 50, profile_img: require(avt1), peopleOk: '20', peopleLeft: '10'},
-        {key: '128',author: "Trường Biên Giới", time: "3 ngày trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ', textDesc: 'Cần người tình nguyện tham gia dọn dẹp và tân trang lại trung tâm',img: require(img_content1), likes: 50, comment: 50, profile_img: require(avt2), peopleOk: '20', peopleLeft: '10'},
-        {key: '129',author: "Hỗ trợ người lớn tuổi", time: "5 giờ trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ', textDesc: 'Cần người tình nguyện tham gia dọn dẹp và tân trang lại trung tâm',img: require(img_content2), likes: 23, comment: 32, profile_img: require(avt3), peopleOk: '20' , peopleLeft: '10'},
-        {key: '120',author: "Hỗ trợ người nghèo", time: "1 phút trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ', textDesc: 'Cần người tình nguyện tham gia dọn dẹp và tân trang lại trung tâm',img: require(img_content3), likes: 50, comment: 50, profile_img: require(avt4), peopleOk: '20', peopleLeft: '10'},
-        {key: '121',author: "Chùa Tây Ninh", time: "10 phút trước", textHeader: 'TÂN TRANG TRUNG TÂM BẢO TRỢ', textDesc: 'Cần người tình nguyện tham gia dọn dẹp và tân trang lại trung tâm',img: require(img_content4), likes: 50, comment: 50, profile_img: require(avt1), peopleOk: '20', peopleLeft: '10'}
-    ])
-    const [visible, setVisible] = useState(false);
-  
-    const closeMenu = () => setVisible(false);
-    const openMenu = (v) => setVisible(true);
-    const accessPage2 = () => navigation.navigate('Donate');
-    return(
-        <View  style={{flex: 1}}>
-            <SafeAreaView style = {{backgroundColor:'white'}}>
-                <StatusBar barStyle="dark-content" animated={true} backgroundColor='white'/>
-                <View style ={styles.statusbar}>
-                    <Text style ={styles.nameApp}>#Viectute</Text>
-                    <View style={{display:'flex', flexDirection:'row', marginRight: 20}}>  
-                        <FontAwesome name='plus-square-o' style={{fontSize: 30}}/>
-                        <Feather name='navigation' style={{fontSize: 30, marginLeft: 10}}/>
-                    </View>
-
-                </View>
-            </SafeAreaView>
-            <ScrollView>
-                <View>
-                    <View style={styles.stories}>
-                        <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}>
-                            <View style={{paddingRight: 7, marginTop: 3}}>
-                                <Image source={require(khanhimg)} style={styles.stories_img}/>
-                                <View style={{position: 'absolute'}}>
-                                    <View style={styles.addbtnStoriesContainer}>
-                                        <Ionicons name='add'style={styles.addbtnStories}/>
-                                    </View>
-                                </View>
-                            </View>
-                            {data.map((post) => <Stories key="{item}" img={post.profile_img} name={post.author}/>)}
-                        </ScrollView>
-                    </View>
-                </View>
-                <View>
-                            <View style = {styles.post}>
-                                <View style = {styles.header}>
-                                    <View style= {styles.profile}>
-                                        <Image source={require(avt4)} style = {styles.profile_img}/>
-                                        <View style = {styles.profile_details}>
-                                            <Text style = {styles.author}>Trung tâm hỗ trợ lũ lụt Việt Nam</Text>
-                                            <Text style = {styles.time}>2 ngày trước</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style = {styles.content}>
-                                    <Image source={require(img_content3)} style = {styles.img}/>
-                                    <View style = {styles.text}>
-                                        <Text style={styles.textHeader}>GÂY QUỸ GIÚP ĐỠ NGƯỜI DÂN MIỀN TRUNG SAU LŨ LỤT</Text>
-                                        <Text style={styles.textDesc}>Chung tay gây quỹ giúp người dân ở miền Trung sau những thiệt hại do lũ</Text>
-                                    </View>
-                                    <View style={styles.progressBar}>
-                                        <View style={styles.progressbarText}>
-                                            <Text style={styles.progressbarTextBold}>150.000.000</Text>
-                                            <Text style={styles.progressbarTextLight}> để hoàn thành mục tiêu</Text>
-                                        </View>
-                                        <Progress.Bar progress={0.3} width={390} color='#FF493C' height={10}  formatText='100' unfilledColor='#F5F5F5' borderColor='#F5F5F5' borderRadius={25}/>
-                                    </View>
-                                    <View style={styles.participateContainer}> 
-                                        <View style={styles.participatePeople}>
-                                            <View style={styles.participateAvt}>
-                                                <View style={styles.participateAvtChil1}>
-                                                    <Image source={require(avt1)} style={styles.avt}/>
-                                                    <View style={styles.participateAvtChil2}>
-                                                        <Image source={require(avt2)} style={styles.avt}/>
-                                                            <View style={styles.participateAvtChil3}>
-                                                                <Image source={require(avt3)} style={styles.avt}/>
-                                                                    <View style={styles.participateAvtChildDot}>
-                                                                        <View>
-                                                                            <Image source={require(dot_child)} style={styles.avt}/>
-                                                                        </View>
-                                                                        <View style={styles.dot}>
-                                                                            <View style={{opacity: 1}}>
-                                                                                <Antdesign name='ellipsis1' color='#ffffff' size={'20'} style={{textAlign:'center', marginLeft:5}}/>
-                                                                            </View>
-                                                                        </View>
-                                                                    </View>
-                                                            </View>
+                                                    <View style={styles.dot}>
+                                                        <View style={{ opacity: 1 }}>
+                                                            <Antdesign name='ellipsis1' color='#ffffff' size={20} style={{ textAlign: 'center', marginLeft: 5 }} />
+                                                        </View>
                                                     </View>
                                                 </View>
                                             </View>
-                                            
-                                            <View style={styles.participateText}>
-                                                <Text style={styles.participateTextBold}>50 Người</Text>
-                                                <Text style={styles.participateTextLight}> Đã tham gia</Text>
-                                            </View>
                                         </View>
-                                        <Button 
-                                            title="Ủng hộ"
-                                            buttonStyle={{ display: 'flex',
-                                                        flexDirection: 'row',
-                                                        justifyContent:'center',
-                                                        borderRadius: 8,
-                                                        width: 120,
-                                                        height: '100%',
-                                                        backgroundColor: 'red',}}
-                                            containerStyle={styles.containerButton}
-                                            titleStyle={styles.titleButton}
-                                            onPress={()=> {accessPage2();}}
-                                            />
+                                    </View>
+                                </View>
+                            </View>
+                        </View> */}
+                        <View style={styles.joinBtn}>
+                            <View style={styles.participateText}>
+                                <Text style={styles.participateTextBold}>{joinedNumber} Người</Text>
+                                <Text style={styles.participateTextLight}> Đã tham gia</Text>
                             </View>
                         </View>
-                <View style = {styles.footer}>
-                    <View style = {styles.icon_like}>
-                        <TouchableOpacity style={styles.like} onPress={() => {}}>
-                        <Image source={require(like)} style={styles.like}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.like} onPress={() => {}}>
-                            <Image source={require(comment)} style={styles.like}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.like} onPress={() => {}}>
-                            <Image source={require(send)} style={styles.like}/>
+
+                    </View>
+                </View>
+                <View style={styles.footer}>
+                    <View style={styles.icon_like}>
+                        <View style={styles.flexIcon}>
+                            <TouchableOpacity style={styles.like} onPress={() => {
+                                likeActivities()
+                            }}>
+                                <Image source={heartState} style={styles.like} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.like} onPress={() => { }}>
+                                <Image source={require(comment)} style={styles.like} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.like} onPress={() => { }}>
+                                <Image source={require(send)} style={styles.like} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    <View style={styles.icon}>
+                        {postType === 'TN' ? <Button
+                            title={joinedState}
+                            buttonStyle={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                borderRadius: 8,
+                                width: 120,
+                                height: '100%',
+                                backgroundColor: 'red',
+                            }}
+                            containerStyle={styles.containerButton}
+                            titleStyle={styles.titleButton}
+                            onPress={() => {
+                                joinActivities();
+                            }}
+                        /> : <Button
+                            title='Ủng hộ'
+                            buttonStyle={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                borderRadius: 8,
+                                width: 120,
+                                height: '100%',
+                                backgroundColor: 'red',
+                            }}
+                            containerStyle={styles.containerButton}
+                            titleStyle={styles.titleButton}
+                            onPress={() => {
+                                donateActivities();
+                            }}
+                        />}
+
+                    </View>
+                </View>
+            </View>
+        );
+    }
+
+    const RenderItem = ({ item }) =>
+        <PostItem
+
+            post={item}
+            authorAvt={item.avtOwner}
+            authorName={item.nameOwner}
+            timePost={item.timeago}
+            mainimage={item.mainimage}
+            headerPost={item.title}
+            descPost={item.content}
+            peopleLeft={item.totalUsers}
+            joinedList={item.avtCurrentUsers}
+            joinedNumber={item.currentUsers}
+            postType={item.type}
+        />
+
+    return (
+        <FlatList
+            showsVerticalScrollIndicator={false}
+            data={postdata}
+            renderItem={RenderItem}
+            keyExtractor={(item) => item.id}
+            onEndReached={
+                onEndReached
+            }
+            onEndReachedThreshold={onEndReachedThreshold}
+
+        />
+    );
+}
+
+const Story = ({ data }) => {
+    return (
+        data.map((data) =>
+            <View key={data.id}>
+                <Image source={{ uri: data.img }} style={styles.stories_img} />
+            </View>
+        )
+    );
+}
+const StoryHeader = ({ data }) => {
+    return (
+        <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={styles.stories}>
+            <Image source={require(khanhimg)} style={styles.stories_img} />
+            <View style={{ position: 'absolute' }}>
+                <View style={styles.addbtnStoriesContainer}>
+                    <Ionicons name='add' style={styles.addbtnStories} />
+                </View>
+            </View>
+            <Story data={data}></Story>
+        </ScrollView>);
+}
+
+
+const Home = () => {
+    const navigation = useNavigation();
+    const [PostData, setPostData] = React.useState([]);
+    const [storiesData, setstories] = React.useState([
+        {
+            'id': '0badKq4rXmXy39J1CATp',
+            'img': 'https://storage.googleapis.com/volunteer-app-c93c9.appspot.com/users/ledothanhdat1208@gmail.com/avatar.png',
+        },
+
+    ]);
+    const [visible, setVisible] = useState(false);
+
+    const closeMenu = () => setVisible(false);
+    const openMenu = (v) => setVisible(true);
+    const accessPage2 = () => navigation.navigate('Donate');
+    const [SrollToStart, setSrollToStart] = useState(false);
+
+    const getMorePost = async () => {
+        // Call fucntion get post;
+        await HomeService.getPostBy().then((res) => {
+            console.log(res.data);
+            if (res.status == 200) {
+                setPostData(res.data);
+            }
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+    const getStories =  () => {
+        // implement
+    }
+    React.useEffect(() => {
+        getStories();
+        getMorePost();
+    }, []);
+
+
+    return (
+        <View style={{ flex: 1 }}>
+            <SafeAreaView style={{ backgroundColor: 'white' }}>
+                <StatusBar barStyle='dark-content' animated={true} backgroundColor='white' />
+                <View style={styles.statusbar}>
+                    <Text style={styles.nameApp}>#Viectute</Text>
+                    <View style={styles.option}>
+                        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginRight: 20 }}>
+                            <TouchableOpacity onPress={() => {navigation.navigate('Post')}}>
+                                <FontAwesome name='plus-square-o' style={{ fontSize: 28, opacity: 0.7, }} />
+                            </TouchableOpacity>
+
+                            <Feather name='navigation' style={{ fontSize: 28, marginLeft: 10, opacity: 0.7, }} />
+                        </View>
+                    </View>
+                </View>
+                <StoryHeader data={storiesData}></StoryHeader>
+
+            </SafeAreaView>
+
+            <View style={styles.container}>
+                <Post
+                    onEndReached={() => { }}
+                    onEndReachedThreshold={0.7}
+                    postdata={PostData} />
+            </View>
+
+            <View style={styles.navigation}>
+                <View style={styles.flexFooter}>
+                    <View style={styles.navigationElement}>
+                        <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
+                            <Image source={require(search)} style={styles.iconbtn} />
                         </TouchableOpacity>
                     </View>
-                    <View style = {styles.icon}>
-                        <TouchableOpacity style={styles.like} onPress={() => {}}>
-                            <Image source={require(storage)} style={styles.like}/>
+
+                    <View style={styles.navigationElement}>
+                        <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
+                            <Image source={require(logo)} style={styles.mainIcon} />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.navigationElement}>
+                        <TouchableOpacity style={styles.navigateBtn} onPress={() => { navigation.navigate('Account') }}>
+                            <Image source={require(user)} style={styles.iconbtn} />
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
-        </View>
-                <ScrollView style={styles.container}> 
-                    {data.map((post) => <Post post={post}/>)}
-                </ScrollView>
-            </ScrollView>
-        </View>
+        </View >
     );
 }
 
