@@ -277,24 +277,37 @@ export const styles = StyleSheet.create({
         width: 24,
         height: 24,
         marginRight: 18,
-        marginLeft: 2,        
+        marginLeft: 2,
     },
     save: {
         width: 24,
         height: 24,
     },
 
-    navigation: {
-        height: 60,
-        marginBottom: 5,
+    navigationBody: {
+        flex: 1,
+        maxHeight: 55,
+        justifyContent: 'flex-end',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+    },
+    navBar: {
+        flex: 1,
+        borderRadius: 6,
         backgroundColor: 'white',
+
     },
     flexFooter: {
         flex: 1,
         flexDirection: 'row',
     },
     navigateBtn: {
-        padding: 10,
         borderRadius: 60,
     },
     navigationElement: {
@@ -303,13 +316,20 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    navigationMainElement: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+    },
     iconbtn: {
-        width: 32,
-        height: 32,
+        width: 35,
+        height: 35,
         opacity: 0.7,
     },
     mainIcon: {
-        width: 32,
-        height: 32, 
+        width: 30,
+        height: 30,
     }
 });

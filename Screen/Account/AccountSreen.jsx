@@ -28,7 +28,7 @@ const AccountScreen = ({ navigation }) => {
                     <View style={styles.options}>
                         <Option onPress={() => {navigation.navigate('ChangeAccountInfo')}} title={'Thay đổi thông tin tài khoản'} />
                         <Option title={'Tài Khoản HDBank của tôi'} onPress={() => {navigation.navigate('')}}/>
-                        <Option title={'Danh sách theo dõi'} />
+                        <Option title={'Hoạt động đang tham gia'} />
                         <Option title={'Trợ giúp'} />
                         <Option title={'Chính xách bảo mật'} />
                 

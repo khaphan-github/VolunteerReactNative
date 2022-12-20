@@ -17,6 +17,9 @@ import GoogleAuth from "../Screen/Login/GoogleAuth";
 import ChangeAccountInfoScreen from "../Screen/ChangeAccountInfo/ChangeAccountInfoScreen";
 import AccountScreen from "../Screen/Account/AccountSreen";
 import PostScreen from "../Screen/Post/PostScreen";
+import ConfirmScreen from "../Screen/Donate/ConfirmDonate";
+import JoinScreen from "../Screen/Join/JoinScreen";
+import ActivitiesList from "../Screen/Join/ActivitiesList";
 
 const Stack = createStackNavigator();
 
@@ -25,12 +28,11 @@ const MainStackNavigator = () => {
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
-
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Donate" component={DonateScreen} />
       <Stack.Screen name="Success" component={Success} />
-
       <Stack.Screen name="Login" component={Login} />
+
       <Stack.Screen name='IntroSlider' component={IntroSlider} />
       <Stack.Screen name="SignupEmail" component={SignupEmail} />
       <Stack.Screen name="SignupConfirmEmail" component={SignupConfirmMail} />
@@ -41,7 +43,9 @@ const MainStackNavigator = () => {
       <Stack.Screen name='ChangeAccountInfo' component={ChangeAccountInfoScreen} />
       <Stack.Screen name='Account' component={AccountScreen} />
       <Stack.Screen name='Post' component={PostScreen} />
-
+      <Stack.Screen name='Confirm' component={ConfirmScreen} />
+      <Stack.Screen name='Join' component={JoinScreen} />
+      <Stack.Screen name='Activities' component={ActivitiesList} />
     </Stack.Navigator>
 
   );

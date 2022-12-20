@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, StyleSheet, Text, Pressable, View, Image, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, Pressable, View, Image, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { COLOR, SIZES } from "../../Component/Constants/Theme";
 import CustomButton from "../../Component/Element/CustomButton";
 import CustomInputV1 from "../../Component/Element/CustomInputV1";
@@ -7,21 +7,22 @@ import img_content2 from '../../assets/icon/img_content2.jpg'
 import CheckBox from "@react-native-community/checkbox";
 
 const DonateScreen = ({ navigation, route }) => {
-    const [isSelected, setSelection] = useState(false);
-    const [password, setPassword] = useState('');
-    const [WaitForLogin, setWaitForLogin] = useState(false);
+    const [WaitForDonate, setWaitForDonate] = useState(false);
     const [donateAmount, setDonateAmount] = useState('0');
+    const [shortDesc, setshortDesc] = useState();
     const [postImage, setPostImage] = useState();
-    const [PostTitle, setPostName] = useState();
-    const [PostId, setPostId] = useState();
+    const [PostTitle, setPostTitle] = useState();
+    const [giveMessage, setGiveMessage] = useState();
+    const [postInfo, setpostInfo] = useState();
 
     useEffect(() => {
-        if (route.params?.postID) {
-            setPostId(route.params?.postID);
-            setPostName(route.params?.postName);
-            setPostImage(route.params?.postImage);
+        if (route.params?.postInfo) {
+            setpostInfo(route.params?.postInfo)
+            setPostImage(route.params?.postInfo.mainimage);
+            setPostTitle(route.params?.postInfo.title);
+            setshortDesc(route.params?.postInfo.content);
         }
-    }, [route.params?.postID]);
+    }, [route.params?.postInfo]);
 
     const HDBankLogin = async () => {
         setWaitForLogin(true);
@@ -48,16 +49,22 @@ const DonateScreen = ({ navigation, route }) => {
         });
 
         return (
-            <Pressable style={styles.donateOption} onPress={onPress}>
+            <TouchableOpacity style={styles.donateOption} onPress={onPress}>
                 <Text style={styles.donateOptionText}>{amount}</Text>
-            </Pressable>
+            </TouchableOpacity>
         );
     }
 
-    const donate = async () => {
+    const donate = () => {
+        setWaitForDonate(true);
         // Call donate Screen.
         // Call confirm donate screen,
-        navigation.navigate('Success')
+        navigation.navigate('Confirm', {
+            donateAmount: donateAmount,
+            postInfo: route.params?.postInfo,
+            message: giveMessage
+        })
+        setWaitForDonate(false);
     }
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -65,7 +72,7 @@ const DonateScreen = ({ navigation, route }) => {
                 <View style={styles.header}>
                     <Pressable
                         style={styles.goback}
-                        onPress={() => {navigation.navigate('Home')}}>
+                        onPress={() => { navigation.navigate('Home') }}>
                         <Image
                             style={styles.gobackIcon}
                             source={require('../../assets/icon/arrow-to-left.jpg')}
@@ -79,21 +86,15 @@ const DonateScreen = ({ navigation, route }) => {
                     <View style={styles.modalView}>
                         <View style={styles.flexLogo}>
                             <Image style={styles.logo} source={{ uri: postImage }} />
-                            <View style={{ width: '100%', position: 'absolute' }}>
-                                <Image source={require('../../assets/icon/phuden.jpg')} style={{ height: 30, opacity: 0.4 }} />
-                                <Text style={{
-                                    position: 'absolute',
-                                    fontSize: 18,
-                                    fontWeight: '500',
-                                    color: 'white',
-                                    fontStyle: 'italic',
-                                    textAlign: 'center',
-                                    width: '100%',
-                                    marginLeft: 9
-                                }}>{PostTitle}</Text>
-                            </View>
                         </View>
                         <View style={styles.flexInput}>
+                            <Text style={{
+                                fontSize: 18,
+                                fontWeight: '500',
+                                width: '100%',
+                                paddingBottom: 10,
+                            }}>{PostTitle}
+                            </Text>
                             <CustomInputV1
                                 label={'Số tiền ủng hộ'}
                                 maxLength={30}
@@ -112,7 +113,7 @@ const DonateScreen = ({ navigation, route }) => {
                                 <CustomInputV1
                                     label={'Lời nhắn'}
                                     maxLength={30}
-                                    onChangeText={(text) => setPassword(text)}
+                                    onChangeText={(text) => setGiveMessage(text)}
                                     placeholder={'Gửi lời nhắn ...'}
                                 />
                             </View>
@@ -121,8 +122,8 @@ const DonateScreen = ({ navigation, route }) => {
 
                         <View style={styles.flexDonateBtn}>
                             <CustomButton
-                                title='Ủng hộ'
-                                isLoading={WaitForLogin}
+                                title='Tiếp tục'
+                                isLoading={WaitForDonate}
                                 onPress={() => { donate() }}
                             />
                         </View>
