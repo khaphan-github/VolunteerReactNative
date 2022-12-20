@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.2",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-native-fontawesome": "^0.3.0",
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-community/checkbox": "^0.5.12",
     "@react-native-community/datetimepicker": "6.2.0",
@@ -73,7 +76,8 @@
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "undefined": "expo-auth-session/providers/google",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "react-native-maps": "0.31.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

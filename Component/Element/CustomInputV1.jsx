@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
 import { COLOR, SIZES } from '../Constants/Theme';
 
-const CustomInputV1 = ({ style,keyboardType, value, placeholder, secureTextEntry, onChangeText, errorMessage, maxLength, label }) => {
+const CustomInputV1 = ({ style,keyboardType, value, editable,placeholder, secureTextEntry, onChangeText, errorMessage, maxLength, label }) => {
 
     return (
         <View style={style}>
@@ -19,6 +19,7 @@ const CustomInputV1 = ({ style,keyboardType, value, placeholder, secureTextEntry
                     style={styles.input}
                     secureTextEntry={secureTextEntry}
                     maxLength={maxLength}
+                    editable={editable}
                 />
             </View>
             {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}

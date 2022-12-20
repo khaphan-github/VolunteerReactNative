@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, SafeAreaView, StatusBar, FlatList, Alert } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, SafeAreaView, StatusBar, FlatList, Alert, Modal } from 'react-native';
 import { styles } from './../Home/HomeScreenStyle';
 import * as Progress from 'react-native-progress';
 import './../Signup/SignupType';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Antdesign from 'react-native-vector-icons/AntDesign'
+import Entypo from 'react-native-vector-icons/Entypo'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import Octicons from 'react-native-vector-icons/Octicons'
+
 import { Feather } from '@expo/vector-icons'
 import { Button, ButtonGroup, withTheme } from '@rneui/themed';
 import { useState } from 'react';
@@ -31,11 +35,10 @@ const user = '../../assets/icon/icons8-male-user-64.png'
 const notifi = '../../assets/icon/notification.png';
 const home = '../../assets/icon/icons8-home-page-96.png'
 const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) => {
-    const PostItem = ({ post, authorAvt, authorName, mainimage, timePost, headerPost, descPost, peopleLeft, joinedList, joinedNumber, postType }) => {
+    const PostItem = ({ item, authorAvt, authorName, mainimage, timePost, headerPost, descPost, peopleLeft, joinedList, joinedNumber, postType }) => {
         const navigation = useNavigation();
         const isLogin = async () => {
             const userStored = await AsyncStoraged.getData();
-            console.log(userStored);
             if (userStored === null) {
                 return false;
             }
@@ -68,15 +71,13 @@ const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) =>
                 showAlert();
                 return;
             }
-            setJoinedState('Đã tham gia');
-
+            navigation.navigate('Join')
         }
         const likeActivities = async () => {
             if (!isLogin()) {
                 showAlert();
                 return;
             }
-            // id, clientID,
             heartState == require(like) ? sethearthState(require(redHeart)) : sethearthState(require(like))
         }
 
@@ -85,11 +86,7 @@ const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) =>
                 showAlert();
                 return;
             }
-            navigation.navigate('Donate', {
-                postID: post.id,
-                postName: headerPost,
-                postImage: mainimage,
-            });
+            navigation.navigate('Donate', { postInfo: item });
         }
 
         return (
@@ -219,8 +216,7 @@ const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) =>
 
     const RenderItem = ({ item }) =>
         <PostItem
-
-            post={item}
+            item={item}
             authorAvt={item.avtOwner}
             authorName={item.nameOwner}
             timePost={item.timeago}
@@ -276,6 +272,7 @@ const StoryHeader = ({ data }) => {
 
 const Home = () => {
     const navigation = useNavigation();
+    const [modalVisible, setmodalVisible] = useState(false);
     const [PostData, setPostData] = React.useState([]);
     const [storiesData, setstories] = React.useState([
         {
@@ -302,14 +299,14 @@ const Home = () => {
             console.log(error);
         })
     }
-    const getStories =  () => {
+    const getStories = () => {
         // implement
     }
     React.useEffect(() => {
-        getStories();
+        // getStories();
         getMorePost();
+        setmodalVisible(true);
     }, []);
-
 
     return (
         <View style={{ flex: 1 }}>
@@ -319,7 +316,7 @@ const Home = () => {
                     <Text style={styles.nameApp}>#Viectute</Text>
                     <View style={styles.option}>
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginRight: 20 }}>
-                            <TouchableOpacity onPress={() => {navigation.navigate('Post')}}>
+                            <TouchableOpacity onPress={() => { navigation.navigate('Post') }}>
                                 <FontAwesome name='plus-square-o' style={{ fontSize: 28, opacity: 0.7, }} />
                             </TouchableOpacity>
 
@@ -337,29 +334,40 @@ const Home = () => {
                     onEndReachedThreshold={0.7}
                     postdata={PostData} />
             </View>
-
-            <View style={styles.navigation}>
-                <View style={styles.flexFooter}>
-                    <View style={styles.navigationElement}>
-                        <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
-                            <Image source={require(search)} style={styles.iconbtn} />
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.navigationElement}>
-                        <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
-                            <Image source={require(logo)} style={styles.mainIcon} />
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.navigationElement}>
-                        <TouchableOpacity style={styles.navigateBtn} onPress={() => { navigation.navigate('Account') }}>
-                            <Image source={require(user)} style={styles.iconbtn} />
-                        </TouchableOpacity>
+            <View style={styles.navigationBody}>
+                <View style={styles.navBar}>
+                    <View style={styles.flexFooter}>
+                        <View style={styles.navigationElement}>
+                            <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
+                                <Entypo name='home' style={{ fontSize: 28, opacity: 0.7, }} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.navigationElement}>
+                            <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
+                                <Ionicons  name='search-outline' style={{ fontSize: 28, opacity: 0.7, }} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.navigationMainElement}>
+                            <TouchableOpacity style={styles.navigateBtn} onPress={() => { navigation.navigate('Activities') }}>
+                                <Image source={require(logo)} style={styles.mainIcon} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.navigationElement}>
+                            <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
+                                <AntDesign name='message1' style={{ fontSize: 25, opacity: 0.8, }} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.navigationElement}>
+                            <TouchableOpacity style={styles.navigateBtn} onPress={() => { navigation.navigate('Account') }}>
+                                <Octicons name='three-bars' style={{ fontSize: 25, opacity: 0.8, }} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </View>
+
         </View >
+
     );
 }
 
