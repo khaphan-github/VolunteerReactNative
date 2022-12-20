@@ -344,7 +344,7 @@ const Home = () => {
                         </View>
                         <View style={styles.navigationElement}>
                             <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
-                                <Ionicons name='search' style={{ fontSize: 28, opacity: 0.7, }} />
+                                <Ionicons  name='search-outline' style={{ fontSize: 28, opacity: 0.7, }} />
                             </TouchableOpacity>
                         </View>
                         <View style={styles.navigationMainElement}>
