@@ -115,7 +115,6 @@ const ChangeAccountInfoScreen = ({ navigation }) => {
     // Gọi call back sau khi component add element to dom - 
     const getUserStored = async () => {
         const userStored = await AsyncStoraged.getData();
-        console.warn(userStored);
         const _user = userStored.responseUser;
         setAvatar(_user.avatar);
         setCoverImage(_user.cover);

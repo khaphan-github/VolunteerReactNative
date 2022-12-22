@@ -65,13 +65,11 @@ const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) =>
         const [joinedState, setJoinedState] = useState('Tham Gia');
         const joinActivities = () => {
 
-            // id; Call screen Join
-            // Limit join in tuan;
             if (!isLogin()) {
                 showAlert();
                 return;
             }
-            navigation.navigate('Join')
+            navigation.navigate('Join', { postInfo: item })
         }
         const likeActivities = async () => {
             if (!isLogin()) {
@@ -113,13 +111,24 @@ const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) =>
                         <Text style={styles.textHeader}>{headerPost}</Text>
                         <Text style={styles.textDesc}>{descPost}</Text>
                     </View>
-                    <View style={styles.progressBar}>
-                        <View style={styles.progressbarText}>
-                            <Text style={styles.progressbarTextBold}>Còn {peopleLeft - joinedNumber} người</Text>
-                            <Text style={styles.progressbarTextLight}> để hoàn thành mục tiêu</Text>
+                    {postType == 'TN' ?
+                        <View style={styles.progressBar}>
+                            <View style={styles.progressbarText}>
+                                <Text style={styles.progressbarTextBold}>Còn {peopleLeft - joinedNumber} người</Text>
+                                <Text style={styles.progressbarTextLight}> để hoàn thành mục tiêu</Text>
+                            </View>
+                            <Progress.Bar progress={joinedNumber / peopleLeft} color='#FF493C' height={8} width={SIZES.width - 20} unfilledColor='#F5F5F5' borderColor='#F5F5F5' borderRadius={25} />
                         </View>
-                        <Progress.Bar progress={joinedNumber / peopleLeft} color='#FF493C' height={8} width={SIZES.width - 20} unfilledColor='#F5F5F5' borderColor='#F5F5F5' borderRadius={25} />
-                    </View>
+                        :
+                        <View style={styles.progressBar}>
+                            <View style={styles.progressbarText}>
+                                <Text style={styles.progressbarTextBold}>Còn {(item.totalMoney - item.currentMoney).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VNĐ</Text>
+                                <Text style={styles.progressbarTextLight}> để hoàn thành mục tiêu</Text>
+                            </View>
+                            <Progress.Bar progress={item.currentMoney / item.totalMoney} color='#FF493C' height={8} width={SIZES.width - 20} unfilledColor='#F5F5F5' borderColor='#F5F5F5' borderRadius={25} />
+                        </View>
+                    }
+
 
                     <View style={styles.participateContainer}>
                         {/* <View style={styles.participatePeople}>
@@ -147,12 +156,23 @@ const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) =>
                                 </View>
                             </View>
                         </View> */}
-                        <View style={styles.joinBtn}>
-                            <View style={styles.participateText}>
-                                <Text style={styles.participateTextBold}>{joinedNumber} Người</Text>
-                                <Text style={styles.participateTextLight}> Đã tham gia</Text>
+                        {postType == 'TN' ?
+                            <View style={styles.joinBtn}>
+                                <View style={styles.participateText}>
+                                    <Text style={styles.participateTextBold}>{joinedNumber} Người</Text>
+                                    <Text style={styles.participateTextLight}> Đã tham gia</Text>
+                                </View>
                             </View>
-                        </View>
+
+                            :
+                            <View style={styles.joinBtn}>
+                                <View style={styles.participateText}>
+                                    <Text style={styles.participateTextBold}>{item.currentUsers} Người</Text>
+                                    <Text style={styles.participateTextLight}> Đã ủng hộ</Text>
+                                </View>
+                            </View>
+
+                        }
 
                     </View>
                 </View>
@@ -288,24 +308,24 @@ const Home = () => {
     const accessPage2 = () => navigation.navigate('Donate');
     const [SrollToStart, setSrollToStart] = useState(false);
 
+    const [posPost, setPosPost] = useState(0);
     const getMorePost = async () => {
-        // Call fucntion get post;
-        await HomeService.getPostBy().then((res) => {
+        await HomeService.getPostByLimit(5, posPost).then((res) => {
             console.log(res.data);
             if (res.status == 200) {
                 setPostData(res.data);
+                setPosPost(posPost + 5);
             }
         }).catch(error => {
-            console.log(error);
+            console.warn(error);
         })
     }
     const getStories = () => {
         // implement
     }
+    
     React.useEffect(() => {
-        // getStories();
         getMorePost();
-        setmodalVisible(true);
     }, []);
 
     return (
@@ -330,7 +350,7 @@ const Home = () => {
 
             <View style={styles.container}>
                 <Post
-                    onEndReached={() => { }}
+                    onEndReached={() => { getMorePost() }}
                     onEndReachedThreshold={0.7}
                     postdata={PostData} />
             </View>
@@ -344,7 +364,7 @@ const Home = () => {
                         </View>
                         <View style={styles.navigationElement}>
                             <TouchableOpacity style={styles.navigateBtn} onPress={() => { }}>
-                                <Ionicons  name='search-outline' style={{ fontSize: 28, opacity: 0.7, }} />
+                                <Ionicons name='search-outline' style={{ fontSize: 28, opacity: 0.7, }} />
                             </TouchableOpacity>
                         </View>
                         <View style={styles.navigationMainElement}>

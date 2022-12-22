@@ -3,6 +3,7 @@ import { COLOR, SIZES } from '../../Component/Constants/Theme';
 
 export const styles = StyleSheet.create({
     containter: {
+        flex: 1,
         width: SIZES.width,
         height: SIZES.height,
     },
@@ -11,7 +12,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 35,
+        marginTop: 15,
         marginHorizontal: 10,
     },
     goback: {
@@ -52,15 +53,15 @@ export const styles = StyleSheet.create({
         marginVertical: 20,
     },
     relatedActivity: {
-        flex : 1,
+        flex: 1,
         backgroundColor: 'green',
     },
     heartPoint: {
-        flex : 0.35,
+        flex: 0.35,
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'white',
-        borderRadius : 10,
+        borderRadius: 10,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -77,10 +78,10 @@ export const styles = StyleSheet.create({
         height: 50,
         marginHorizontal: 10,
     },
-    heartValue:{
+    heartValue: {
         flex: 2,
         textAlign: 'center',
-        fontSize: SIZES.h3, 
+        fontSize: SIZES.h3,
         fontWeight: '500',
         marginRight: 10,
     },

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, StyleSheet, Text, Pressable, View, Image, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { SIZES } from "../Constants/Theme";
 
-const CustomHeader = ({ onPressBack, title }) => {
+const CustomHeader = ({ onPressBack, title, style }) => {
     return (
         <View style={styles.header}>
             <Pressable

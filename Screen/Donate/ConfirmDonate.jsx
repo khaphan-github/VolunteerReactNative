@@ -26,6 +26,7 @@ const ConfirmScreen = ({ navigation, route }) => {
     const donate = () => {
         // Handle DONATE:
         setWaitForDonate(true);
+        navigation.navigate('Success');
     }
 
     const vnPay = require('../../assets/icon/Payment/download.png');

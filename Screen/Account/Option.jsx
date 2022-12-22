@@ -1,13 +1,14 @@
 
-import { Image, View, Text, Pressable, StyleSheet } from 'react-native'
-import { SIZES } from '../../Component/Constants/Theme';
-
-const Option = ({ headIcon, title, onPress }) => {
+import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { COLOR, SIZES } from '../../Component/Constants/Theme';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+const Option = ({ headIcon, title, onPress, icoName }) => {
     return (
-        <Pressable style={styles.container} onPress={onPress}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.flex}>
                 <View style={styles.flexIcon}>
-                    <Image style={styles.iconImage} source={headIcon} />
+                    {headIcon ? <Image style={styles.iconImage} source={headIcon} />
+                        : <SimpleLineIcons name={icoName} size={20}></SimpleLineIcons>}
                 </View>
                 <View style={styles.flexText}>
                     <Text style={styles.text}>{title}</Text>
@@ -16,15 +17,16 @@ const Option = ({ headIcon, title, onPress }) => {
                     <Image style={styles.arrow} source={require('../../assets/icon/arrow-to-right.jpg')} />
                 </View>
             </View>
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 const styles = StyleSheet.create({
     container: {
-        height: 50,
-        marginVertical: 5,
+        height: 62,
         backgroundColor: 'white',
         borderRadius: 5,
+        borderBottomColor: COLOR.LightBlack,
+        borderBottomWidth: 1,
     },
     flex: {
         flex: 1,
@@ -41,8 +43,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
     },
     iconImage: {
-        width: 25,
-        height: 25,
+        width: 40,
+        height: 40,
     },
     text: {
         fontSize: SIZES.h4,
