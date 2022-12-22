@@ -19,15 +19,13 @@ const AuthenticateStackNavigator = () => {
     <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-      <Stack.Screen name='IntroSlider' component={IntroSlider} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name='IntroSlider' component={IntroSlider} />
       <Stack.Screen name="SignupEmail" component={SignupEmail} />
       <Stack.Screen name="SignupConfirmEmail" component={SignupConfirmEmail} />
       <Stack.Screen name="SignupType" component={SignupType} />
       <Stack.Screen name="SignupSingle" component={SignupSingle} />
       <Stack.Screen name="SignupOrg" component={SignupOrg} />
-      <Stack.Screen name='Home' component={HomeScreen}/>
-      <Stack.Screen name="Donate" component={DonateScreen} />
       <Stack.Screen name='Google' component={GoogleAuth}/>
     </Stack.Navigator>
   );

@@ -88,5 +88,6 @@ export const styles = StyleSheet.create({
     options: {
         flex: 0.8,
         marginHorizontal: 10,
+        marginVertical: 20,
     },
 });

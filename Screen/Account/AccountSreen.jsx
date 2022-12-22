@@ -30,22 +30,22 @@ const AccountScreen = ({ navigation }) => {
                 <View style={styles.options}>
                     <Option
                         onPress={() => { navigation.navigate('ChangeAccountInfo') }}
-                        title={'Thay đổi thông tin tài khoản'} 
-                        icoName={'user'}/>
+                        title={'Thay đổi thông tin tài khoản'}
+                        icoName={'user'} />
                     <Option
                         title={'Các hoạt động gần đây'}
-                        onPress={() => { navigation.navigate('') }} 
-                        icoName={'heart'}/>
+                        onPress={() => { navigation.navigate('') }}
+                        icoName={'heart'} />
                     <Option
                         title={'Điểm danh hoạt động'}
-                        onPress={() => { navigation.navigate('ScanQR') }} 
-                        icoName={'frame'}/>
+                        onPress={() => { navigation.navigate('ScanQR') }}
+                        icoName={'frame'} />
                     <Option
-                        title={'Trợ giúp'} 
-                        icoName={'question'}/>
+                        title={'Trợ giúp'}
+                        icoName={'question'} />
                     <Option
-                        title={'Chính xách bảo mật'} 
-                        icoName={'doc'}/>
+                        title={'Chính xách bảo mật'}
+                        icoName={'doc'} />
 
                     <CustomButton title={'Đăng xuất'} onPress={() => navigation.navigate('Login')} />
                 </View>

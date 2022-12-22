@@ -35,5 +35,22 @@ class AsyncStoraged {
             .catch(error => { console.error(error); });
         return jwt;
     };
+
+    storeDataBykey = async (key, value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem(key, jsonValue);
+        } catch (error) {
+            console.error('Store' + error);
+        }
+    }
+    getDataByKey = async (postKey) => {
+        try {
+            const jsonValue = await AsyncStorage.getItem(postKey)
+            return jsonValue != null ? JSON.parse(jsonValue) : null;
+        } catch (error) {
+            console.error('get store', error);
+        }
+    }
 }
 export default new AsyncStoraged();

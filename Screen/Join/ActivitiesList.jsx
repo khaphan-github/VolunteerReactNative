@@ -23,13 +23,13 @@ const ActivitiesList = ({ navigation, route }) => {
                 borderBottomColor: COLOR.LightGray,
             },
             flexIcon: {
-                flex: 1.2,
+                flex: 1.4,
                 justifyContent: 'center',
                 alignItems: 'center',
             },
             avatar: {
-                width: 60,
-                height: 60,
+                width: 55,
+                height: 55,
                 borderRadius: 30,
             },
             flexContent: {
@@ -50,7 +50,7 @@ const ActivitiesList = ({ navigation, route }) => {
                     <Image style={styles.avatar} source={OrganizationAvt} />
                 </View>
                 <View style={styles.flexContent}>
-                    <Text style={{ fontSize: SIZES.h4, fontWeight: '500' }}>{title}</Text>
+                    <Text style={{ fontSize: SIZES.h5, fontWeight: '500' }}>{title}</Text>
                     <Text>{date}</Text>
                 </View>
                 <View style={styles.flexQR}>
@@ -93,11 +93,14 @@ const ActivitiesList = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
     containter: {
-        ...Platform.select({
-            ios: {
-                marginTop: 25,
-            },
-        }),
+            ...Platform.select({
+                ios: {
+                    marginTop: 25,
+                },
+            }),
+    },
+    activities: {
+        marginTop: 15,
     }
 
 });

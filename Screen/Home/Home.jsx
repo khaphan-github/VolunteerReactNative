@@ -14,7 +14,7 @@ import { Feather } from '@expo/vector-icons'
 import { Button, ButtonGroup, withTheme } from '@rneui/themed';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { SIZES } from '../../Component/Constants/Theme';
+import { COLOR, SIZES } from '../../Component/Constants/Theme';
 import { async } from 'q';
 import HomeService from '../../Service/api/HomeService';
 import AsyncStoraged from '../../Service/client/AsyncStoraged';
@@ -63,12 +63,13 @@ const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) =>
             );
         const [heartState, sethearthState] = useState(require(like));
         const [joinedState, setJoinedState] = useState('Tham Gia');
-        const joinActivities = () => {
 
+        const joinActivities = () => {
             if (!isLogin()) {
                 showAlert();
                 return;
             }
+            setJoinedState('Đã Tham Gia');
             navigation.navigate('Join', { postInfo: item })
         }
         const likeActivities = async () => {
@@ -196,15 +197,27 @@ const Post = ({ postdata, onEndReached, onEndReachedThreshold, onPressJoin }) =>
                     <View style={styles.icon}>
                         {postType === 'TN' ? <Button
                             title={joinedState}
-                            buttonStyle={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                borderRadius: 8,
-                                width: 120,
-                                height: '100%',
-                                backgroundColor: 'red',
-                            }}
+                            buttonStyle={
+                                joinedState === 'Tham Gia' ?
+                                    {
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                        borderRadius: 8,
+                                        width: 120,
+                                        height: '100%',
+                                        backgroundColor: 'red',
+                                    } :
+                                    {
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                        borderRadius: 8,
+                                        width: 120,
+                                        height: '100%',
+                                        backgroundColor: '#C2E358',
+                                    }
+                            }
                             containerStyle={styles.containerButton}
                             titleStyle={styles.titleButton}
                             onPress={() => {
@@ -292,8 +305,46 @@ const StoryHeader = ({ data }) => {
 
 const Home = () => {
     const navigation = useNavigation();
-    const [modalVisible, setmodalVisible] = useState(false);
-    const [PostData, setPostData] = React.useState([]);
+    const [PostData, setPostData] = React.useState([
+        {
+            "address": "Miền trung",
+            "avtCurrentUsers": [],
+            "avtOwner": "https://storage.googleapis.com/volunteer-app-c93c9.appspot.com/users/ledothanhdat1208@gmail.com/avatar.png",
+            "content": "Trong đợt lũ ngày (14/10) hầu hết các tuyến đường tại...",
+            "currentMoney": 0,
+            "currentUsers": 0,
+            "datecreated": "1671689224481",
+            "id": "lHGkWiOOSuh08B2UntsE",
+            "mainimage": "https://storage.googleapis.com/volunteer-app-c93c9.appspot.com/postImage/lHGkWiOOSuh08B2UntsE/main.png",
+            "nameOwner": "Lê Đỗ Thành Đạt",
+            "owner": "ledothanhdat1208@gmail.com",
+            "subtitle": "Hehe",
+            "timeago": "7 giờ trước",
+            "title": "Ủng hộ cho đồng bào miền trung chống lũ.",
+            "totalMoney": 0,
+            "totalUsers": 100000,
+            "type": "TN"
+        },
+        {
+            "address": "Miền trung",
+            "avtCurrentUsers": null,
+            "avtOwner": "https://storage.googleapis.com/volunteer-app-c93c9.appspot.com/users/khaphan01@gmail.com/avatar.png",
+            "content": "Trong đợt lũ ngày (14/10) hầu hết các tuyến đường tại...",
+            "currentMoney": 52000000,
+            "currentUsers": 1,
+            "datecreated": "1671162503089",
+            "id": "okTCDB1S4xQDZxftZQG7",
+            "mainimage": "https://storage.googleapis.com/volunteer-app-c93c9.appspot.com/postImage/okTCDB1S4xQDZxftZQG7/main.png",
+            "nameOwner": "Phan Hoàng Kha",
+            "owner": "khaphan01@gmail.com",
+            "subtitle": "Hehe",
+            "timeago": "383 ngày trước",
+            "title": "Ủng hộ cho đồng bào miền trung chống lũ.",
+            "totalMoney": 140000000,
+            "totalUsers": 1,
+            "type": "QG"
+        }
+    ]);
     const [storiesData, setstories] = React.useState([
         {
             'id': '0badKq4rXmXy39J1CATp',
@@ -301,13 +352,7 @@ const Home = () => {
         },
 
     ]);
-    const [visible, setVisible] = useState(false);
-
-    const closeMenu = () => setVisible(false);
-    const openMenu = (v) => setVisible(true);
-    const accessPage2 = () => navigation.navigate('Donate');
-    const [SrollToStart, setSrollToStart] = useState(false);
-
+  
     const [posPost, setPosPost] = useState(0);
     const getMorePost = async () => {
         await HomeService.getPostByLimit(5, posPost).then((res) => {
@@ -323,7 +368,7 @@ const Home = () => {
     const getStories = () => {
         // implement
     }
-    
+
     React.useEffect(() => {
         getMorePost();
     }, []);
@@ -351,7 +396,7 @@ const Home = () => {
             <View style={styles.container}>
                 <Post
                     onEndReached={() => { getMorePost() }}
-                    onEndReachedThreshold={0.7}
+                    onEndReachedThreshold={0.5}
                     postdata={PostData} />
             </View>
             <View style={styles.navigationBody}>

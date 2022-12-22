@@ -6,7 +6,7 @@ import CustomInputV1 from "../../Component/Element/CustomInputV1";
 import img_content2 from '../../assets/icon/img_content2.jpg'
 import CheckBox from "@react-native-community/checkbox";
 
-const joinSuccess = ({ navigation }) => {
+const JoinSuccess = ({ navigation }) => {
     return (
         <View style={{flex: 1,justifyContent: 'center', alignItems:'center', backgroundColor: 'white'}}>
             <View>
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default joinSuccess;
+export default JoinSuccess;
