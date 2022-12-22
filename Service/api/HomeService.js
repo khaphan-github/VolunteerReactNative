@@ -21,15 +21,11 @@ class HomeService {
         return await axios({
             method: 'get',
             url: SPRINGBASEURL + '/getpost' + '?limit=' + limitPost + '&begin=' + beginState,
-            timeout: 5000,
+            timeout: 10000,
             withCredentials: true,
             headers: {
                 'Accept': 'application/json',
             },
-            data: {
-                limit: limitPost,
-                begin: beginState,
-            }
         });
     }
     async joinActivities(activitiesID) {
