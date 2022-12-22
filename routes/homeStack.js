@@ -22,6 +22,9 @@ import JoinScreen from "../Screen/Join/JoinScreen";
 import ActivitiesList from "../Screen/Join/ActivitiesList";
 import joinSuccess from "../Screen/Home/JoinSuccess";
 import JoinDetail from "../Screen/Home/JoinDetail"
+import QRCheck from "../Screen/Join/QRCheck";
+import ScanQR from "../Screen/Join/ScanQR";
+
 
 const Stack = createStackNavigator();
 
@@ -50,6 +53,11 @@ const MainStackNavigator = () => {
       <Stack.Screen name='joinSuccess' component={joinSuccess} />
       <Stack.Screen name='JoinDetail' component={JoinDetail} />
       <Stack.Screen name='Activities' component={ActivitiesList} />
+      <Stack.Screen name='QRCheck' component={QRCheck} />
+      <Stack.Screen name='ScanQR' component={ScanQR} />
+
+      
+
     </Stack.Navigator>
 
   );

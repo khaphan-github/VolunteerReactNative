@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 45,
+        marginTop: 15,
     },
     goback: {
         flex: 0.2,
