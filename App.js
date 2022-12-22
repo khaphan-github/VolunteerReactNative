@@ -21,7 +21,7 @@ const App = () => {
     // <AppNavigation navigate={<MainStackNavigator/>}></AppNavigation>
     <NavigationContainer>
       <MainStackNavigator>
-        <Login></Login>
+        <Home></Home>
       </MainStackNavigator>
     </NavigationContainer>
   );
