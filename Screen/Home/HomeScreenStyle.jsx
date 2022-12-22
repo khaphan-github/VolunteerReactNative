@@ -280,7 +280,7 @@ export const styles = StyleSheet.create({
         marginLeft: 2,
     },
     save: {
-        width: 24,
+        shadowRadius: 2.62,        width: 24,
         height: 24,
     },
 
@@ -294,7 +294,7 @@ export const styles = StyleSheet.create({
             height: 2,
         },
         shadowOpacity: 0.23,
-        shadowRadius: 2.62,
+
         elevation: 4,
     },
     navBar: {

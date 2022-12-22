@@ -10,35 +10,46 @@ const AccountScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-                <ScrollView style={styles.containter}>
-                    <View style={styles.header} resizeMode="cover" source={require('../../assets/icon/lisa.jpg')}>
-                        <Pressable style={styles.goback} onPress={() => { navigation.navigate('Home') }}>
-                            <Image style={styles.gobackIcon} source={require('../../assets/icon/arrow-to-left.jpg')} />
-                        </Pressable>
+            <ScrollView style={styles.containter}>
+                <View style={styles.header} resizeMode="cover" source={require('../../assets/icon/lisa.jpg')}>
+                    <Pressable style={styles.goback} onPress={() => { navigation.navigate('Home') }}>
+                        <Image style={styles.gobackIcon} source={require('../../assets/icon/arrow-to-left.jpg')} />
+                    </Pressable>
 
-                        <View style={styles.account}>
-                            <View style={styles.name}>
-                                <Text style={styles.textName}>Đạt</Text>
-                                <Text>ledothanhdat@gmail.com</Text>
-                            </View >
-                            <Image style={styles.avatarImage} source={require('../../assets/icon/lisa.jpg')} />
-                        </View>
+                    <View style={styles.account}>
+                        <View style={styles.name}>
+                            <Text style={styles.textName}>Đạt</Text>
+                            <Text>ledothanhdat@gmail.com</Text>
+                        </View >
+                        <Image style={styles.avatarImage} source={require('../../assets/icon/lisa.jpg')} />
                     </View>
-                    
-                    <View style={styles.options}>
-                        <Option onPress={() => {navigation.navigate('ChangeAccountInfo')}} title={'Thay đổi thông tin tài khoản'} />
-                        <Option title={'Tài Khoản HDBank của tôi'} onPress={() => {navigation.navigate('')}}/>
-                        <Option title={'Hoạt động đang tham gia'} />
-                        <Option title={'Trợ giúp'} />
-                        <Option title={'Chính xách bảo mật'} />
-                
-                        <CustomButton title={'Đăng xuất'} onPress={ async () => {
-                            await AsyncStoraged.removeData();
-                            console.log(AsyncStoraged.getToken());
-                            navigation.navigate('AuthStackNavigator', {screen: 'IntroSlider'});
-                            }}/> 
-                    </View>
-                </ScrollView>
+                </View>
+                <View style={styles.mark}>
+
+                </View>
+                <View style={styles.options}>
+                    <Option
+                        onPress={() => { navigation.navigate('ChangeAccountInfo') }}
+                        title={'Thay đổi thông tin tài khoản'} 
+                        icoName={'user'}/>
+                    <Option
+                        title={'Các hoạt động gần đây'}
+                        onPress={() => { navigation.navigate('') }} 
+                        icoName={'heart'}/>
+                    <Option
+                        title={'Điểm danh hoạt động'}
+                        onPress={() => { navigation.navigate('ScanQR') }} 
+                        icoName={'frame'}/>
+                    <Option
+                        title={'Trợ giúp'} 
+                        icoName={'question'}/>
+                    <Option
+                        title={'Chính xách bảo mật'} 
+                        icoName={'doc'}/>
+
+                    <CustomButton title={'Đăng xuất'} onPress={() => navigation.navigate('Login')} />
+                </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }
