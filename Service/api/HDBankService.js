@@ -39,7 +39,45 @@ class HDBankService {
     }
     forgotPassword() {}
     tranfer() {}
-    getBalance() {}
+    async getinfo() {
+        const userStored = await AsyncStoraged.getData();
+        if (!userStored) {
+            throw new Error('User not found!');
+        }
+        const userToken = userStored.token;
+        const URL = 'https://deloy-springboot-mongodb.herokuapp.com/api/HDBank/get-account?clientID=' + userStored.responseUser._id;
+        return await axios({
+            method: 'post',
+            url: URL,
+            withCredentials: true,
+            timeout: 10000,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + userToken,
+            },
+        }); 
+    }
+
+    async getInfoBy(clientID) {     
+        const userStored = await AsyncStoraged.getData();
+        if (!userStored) {
+            throw new Error('User not found!');
+        }
+        const userToken = userStored.token;
+        const URL = 'https://deloy-springboot-mongodb.herokuapp.com/api/HDBank/get-account?clientID=' + clientID;
+        return await axios({
+            method: 'post',
+            url: URL,
+            withCredentials: true,
+            timeout: 10000,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + userToken,
+            },
+        }); 
+    }
     getHistoryTranfer() {}
     tranferTuition() {}
     getTuitions() {}

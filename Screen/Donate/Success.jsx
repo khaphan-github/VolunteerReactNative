@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+
 import {Modal, StyleSheet, Text, Pressable, View, Image, TouchableOpacity, Keyboard} from "react-native";
+
 import { COLOR, SIZES } from "../../Component/Constants/Theme";
 import CustomButton from "../../Component/Element/CustomButton";
 import CustomInputV1 from "../../Component/Element/CustomInputV1";
@@ -8,6 +10,7 @@ import CheckBox from "@react-native-community/checkbox";
 
 const Success = ({ navigation }) => {
     return (
+
         <View style={{flex: 1,justifyContent: 'center', alignItems:'center', backgroundColor:'white'}}>
             <View>
                 <Image source={require('../../assets/icon/donateSuccess.gif')} style={{width: 500,height: 500}}/>

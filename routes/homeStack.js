@@ -24,6 +24,8 @@ import JoinSuccess from "../Screen/Home/JoinSuccess";
 import JoinDetail from "../Screen/Home/JoinDetail"
 import QRCheck from "../Screen/Join/QRCheck";
 import ScanQR from "../Screen/Join/ScanQR";
+import JoinSuccess from "../Screen/Home/JoinSuccess";
+import LoginScreen from "./../Screen/Login/LoginScreen";
 
 
 const Stack = createStackNavigator();
@@ -33,29 +35,32 @@ const MainStackNavigator = () => {
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
+
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name='IntroSlider' component={IntroSlider} />
       <Stack.Screen name="Donate" component={DonateScreen} />
       <Stack.Screen name="Success" component={Success} />
-      <Stack.Screen name="SignupEmail" component={SignupEmail} />
-      <Stack.Screen name="SignupConfirmEmail" component={SignupConfirmMail} />
-      <Stack.Screen name="SignupType" component={SignupType} />
-      <Stack.Screen name="SignupSingle" component={SignupSingle} />
-      <Stack.Screen name="SignupOrg" component={SignupOrg} />
-      <Stack.Screen name='Google' component={GoogleAuth} />
       <Stack.Screen name='ChangeAccountInfo' component={ChangeAccountInfoScreen} />
       <Stack.Screen name='Account' component={AccountScreen} />
       <Stack.Screen name='Post' component={PostScreen} />
       <Stack.Screen name='Confirm' component={ConfirmScreen} />
       <Stack.Screen name='Join' component={JoinScreen} />
+
       <Stack.Screen name='JoinSuccess' component={JoinSuccess} />
       <Stack.Screen name='JoinDetail' component={JoinDetail} />
       <Stack.Screen name='Activities' component={ActivitiesList} />
       <Stack.Screen name='QRCheck' component={QRCheck} />
       <Stack.Screen name='ScanQR' component={ScanQR} />
 
-      
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name='IntroSlider' component={IntroSlider} />
+      <Stack.Screen name="SignupEmail" component={SignupEmail} />
+      <Stack.Screen name="SignupConfirmEmail" component={SignupConfirmMail} />
+      <Stack.Screen name="SignupType" component={SignupType} />
+      <Stack.Screen name="SignupSingle" component={SignupSingle} />
+      <Stack.Screen name="SignupOrg" component={SignupOrg} />
+      <Stack.Screen name='Google' component={GoogleAuth}/>
 
     </Stack.Navigator>
 
