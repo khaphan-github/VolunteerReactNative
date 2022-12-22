@@ -20,6 +20,7 @@ import PostScreen from "../Screen/Post/PostScreen";
 import ConfirmScreen from "../Screen/Donate/ConfirmDonate";
 import JoinScreen from "../Screen/Join/JoinScreen";
 import ActivitiesList from "../Screen/Join/ActivitiesList";
+import JoinSuccess from "../Screen/Home/JoinSuccess";
 import JoinDetail from "../Screen/Home/JoinDetail"
 import QRCheck from "../Screen/Join/QRCheck";
 import ScanQR from "../Screen/Join/ScanQR";
@@ -36,6 +37,8 @@ const MainStackNavigator = () => {
     }}>
 
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name='IntroSlider' component={IntroSlider} />
       <Stack.Screen name="Donate" component={DonateScreen} />
       <Stack.Screen name="Success" component={Success} />
       <Stack.Screen name='ChangeAccountInfo' component={ChangeAccountInfoScreen} />
@@ -43,7 +46,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name='Post' component={PostScreen} />
       <Stack.Screen name='Confirm' component={ConfirmScreen} />
       <Stack.Screen name='Join' component={JoinScreen} />
-      <Stack.Screen name='joinSuccess' component={JoinSuccess} />
+
+      <Stack.Screen name='JoinSuccess' component={JoinSuccess} />
       <Stack.Screen name='JoinDetail' component={JoinDetail} />
       <Stack.Screen name='Activities' component={ActivitiesList} />
       <Stack.Screen name='QRCheck' component={QRCheck} />

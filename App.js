@@ -8,6 +8,7 @@ const App = () => {
     AsyncStoraged.getToken() ?
       (<AppNavigation navigate={<MainStackNavigator />} />) :
       (<AppNavigation navigate={<AuthenticateStackNavigator />} />)
+
   );
 };
 

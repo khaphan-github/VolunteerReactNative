@@ -108,7 +108,7 @@ class UserService {
         return await axios({
             method: 'post',
             url: _url,
-            timeout: 3000,
+            timeout: 10000,
             withCredentials: true,
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -134,7 +134,7 @@ class UserService {
         return await axios({
             method: 'post',
             url: api,
-            timeout: 1000,
+            timeout: 3000,
             withCredentials: true,
             headers: {
                 'Accept': 'application/json',

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { SafeAreaView, View, Text, Image, Pressable, ScrollView, ImageBackground } from 'react-native';
 import CustomButton from '../../Component/Element/CustomButton';
 import AsyncStoraged from '../../Service/client/AsyncStoraged';
@@ -6,7 +6,19 @@ import { styles } from './AccountScreenStyle';
 import Option from './Option';
 
 const AccountScreen = ({ navigation }) => {
-    const [userInfo, setUserInfo] = useState();
+    const [userName, setUsername] = useState();
+    const [avt, setAvt] = useState();
+    const [email, setEmail] = useState();
+
+    const getUserStored = async () => {
+        const userStored = await AsyncStoraged.getData();
+        const _user = userStored.responseUser;
+        setUsername(_user.firstname + ' '+_user.lastname);
+        setAvt(_user.avatar);
+        setEmail(_user.email);
+    }
+
+    useEffect(() => { getUserStored(); }, []);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -18,10 +30,10 @@ const AccountScreen = ({ navigation }) => {
 
                     <View style={styles.account}>
                         <View style={styles.name}>
-                            <Text style={styles.textName}>Đạt</Text>
-                            <Text>ledothanhdat@gmail.com</Text>
+                            <Text style={styles.textName}>{userName}</Text>
+                            <Text>{email}</Text>
                         </View >
-                        <Image style={styles.avatarImage} source={require('../../assets/icon/lisa.jpg')} />
+                        <Image style={styles.avatarImage} source={{uri: avt}} />
                     </View>
                 </View>
                 <View style={styles.mark}>
