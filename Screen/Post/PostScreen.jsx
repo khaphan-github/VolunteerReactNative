@@ -1,9 +1,11 @@
 import React,{useState} from 'react';
-import {View, Text, Image, TouchableWithoutFeedback, ScrollView, Keyboard , StatusBar, TextInput} from 'react-native';
+import {View, Text, Image, TouchableWithoutFeedback, ScrollView, Keyboard , TouchableOpacity, TextInput} from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { styles } from './../Post/PostScreenStyle';
 import './../Signup/SignupType';
 import CustomButton from '../../Component/Element/CustomButton';
 import AsyncStoraged from '../../Service/client/AsyncStoraged';
+import UserService from '../../Service/api/UserService';
 //import {LinearGradient} from 'expo-linear-gradient';
 // import {LinearGradient} from '@shoutem/ui'
 
@@ -11,55 +13,41 @@ const khanhimg = '../../assets/icon/khanh.jpg';
 const addPicture = '../../assets/icon/addPicture.png';
 const checkin = '../../assets/icon/checkin.png';
 
-const PostScreen = () => {
+const PostScreen = ({navigation}) => {
     const [content, setContent] = useState('');
     const [address, setAddress] = useState('');
     const [people, setPeople] = useState('');
+    const [ContentPicture, setContentPicture] = useState('');
+    const title = 'Tham gia tình nguyện';
+    const subtitle = 'Hỗ trợ';
+    const type = 'TN';
 
-    async function PostContent(urlImage, _type) {
-        const userStored = await AsyncStoraged.getData();
-        if (!userStored) {
-            throw new Error('User not found!');
+    const ContentPictureOption = {
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [2, 2],
+        quality: 1,
+    }
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            ContentPictureOption,
+        });
+        console.log(result);
+        if (result.uri) {
+            setContentPicture(result.uri);
         }
-
-        const username = userStored.responseUser.email ? userStored.responseUser.email : userStored.responseUser.phonenumber;
-        console.info('USERNAME:' + username);
-
-        const userToken = userStored.token;
-        console.info('USER TOKEN:' + userToken);
-        // TODO: Check valid token - then refresh token or login again;
-
-        const baseAPIUpPost = "https://deloy-springboot-mongodb.herokuapp.com/api/firebase/post";
-        let _url = baseAPIUpPost;
-        _url += '/postImage'
-
-        let fileName = urlImage.split('/').pop();
-        let match = /\.(\w+)$/.exec(fileName);
-        let typeImage = match ? `image/${match[1]}` : `image`;
-
-        let formData = new FormData();
-
-        formData.append('file', {
-            uri: urlImage,
-            name: fileName,
-            type: typeImage
-        });
-        formData.append('username', username);
-
-        return await axios({
-            method: 'post',
-            url: _url,
-            timeout: 3000,
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + userToken,
-            },
-            data: formData,
-        });
     }
 
+    const onPost = async () => {
+        await UserService.PostContent(ContentPicture, content, title, subtitle, type, address, people).then((res) => {
+            console.log(res.data.status);
+            if(res.data.status === '201 CREATED')
+                {navigation.navigate('joinSuccess');}
+            
+        }).catch(error => {
+            console.error(error);
+        });
+    }
 
     return(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -108,14 +96,19 @@ const PostScreen = () => {
                                 keyboardType='numeric'
                             />
                         </View>
-                        <View>
-                            <Image style={styles.addPicture} source={require(addPicture)}/>
-                        </View>
+                        <TouchableOpacity onPress={()=>{pickImage()}}>
+                            <View>
+                                <Image style={styles.addPicture} source={require(addPicture)}/>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{width: 100}}>
-                    <CustomButton title='Đăng bài' onPress={()=> PostContent()} />
+                <View style={{justifyContent:'center', alignItems:'center'}}>
+                    <View style={{width: '50%', }}>
+                        <CustomButton title='Đăng bài' onPress={()=> onPost()} />
+                    </View>
                 </View>
+                
             </View>
         </TouchableWithoutFeedback>
         

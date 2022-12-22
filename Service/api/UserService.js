@@ -29,7 +29,7 @@ class UserService {
             method: 'post',
             url: 'https://deloy-springboot-mongodb.herokuapp.com/authenticate',
             withCredentials: true,
-            timeout: 1000,
+            timeout: 3000,
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -144,6 +144,53 @@ class UserService {
         });
     }
 
+    async PostContent(urlImage, content, title, subtitle, type, address, totalUsers) {
+        const userStored = await AsyncStoraged.getData();
+        if (!userStored) {
+            throw new Error('User not found!');
+        }
+
+        const username = userStored.responseUser.email ? userStored.responseUser.email : userStored.responseUser.phonenumber;
+        console.info('USERNAME:' + username);
+
+        const userToken = userStored.token;
+        console.info('USER TOKEN:' + userToken);
+        // TODO: Check valid token - then refresh token or login again;
+
+        const baseAPIImageUrl = 'https://deloy-springboot-mongodb.herokuapp.com/api/firebase/post';
+        let _url = baseAPIImageUrl;
+
+        let fileName = urlImage.split('/').pop();
+        let match = /\.(\w+)$/.exec(fileName);
+        let typeImage = match ? `image/${match[1]}` : `image`;
+
+        let formData = new FormData();
+
+        formData.append('file', {
+            uri: urlImage,
+            name: fileName,
+            type: typeImage
+        });
+        formData.append('username', username);
+        formData.append('title', title);
+        formData.append('subtitle', subtitle);
+        formData.append('type', type);
+        formData.append('address', address);
+        formData.append('totalUsers', totalUsers);
+        formData.append('content', content);
+        return await axios({
+            method: 'post',
+            url: _url,
+            timeout: 10000,
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + userToken,
+            },
+            data: formData,
+        });
+    }
+    
 }
 
 export default new UserService();
