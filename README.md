@@ -1,5 +1,6 @@
 ## Việc Tử Tế - Mobile Application - Multi-platform
 ### Introdution:
+In Ho Chi Minh City there are many Organizations
 ### Architecture:
 ![image](https://user-images.githubusercontent.com/76431966/216554058-99bcf797-5505-4269-9c89-f2dafa8c2834.png)
 ### Technology to use:
@@ -20,4 +21,3 @@ our backend to store user's data.
 6. GoogleMaps(https://developers.google.com/maps) - We  will use google maps in future to suggest nearest distance from user to volunteer place.
 7. Scan QR code - We will implement this feature in future to check in and check out when user join volunteer work. 
 8. Our Backend deployed in Heroku(https://deloy-springboot-mongodb.herokuapp.com).
-### List of features:
