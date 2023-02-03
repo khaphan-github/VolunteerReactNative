@@ -1,7 +1,7 @@
 ## Việc Tử Tế - Mobile Application - Multi-platform
 ### Introdution:
 ### Architecture:
-![image](https://user-images.githubusercontent.com/76431966/216549731-c15470eb-dba2-4824-8cf6-6bac968d7b01.png)
+![image](https://user-images.githubusercontent.com/76431966/216554058-99bcf797-5505-4269-9c89-f2dafa8c2834.png)
 ### Technology to use:
 1. React Native(https://reactnative.dev/) - To develop mobile app cross-platform we use React Native and 
 Expo(https://expo.dev/) to run in dev environment. Then we use Expo dev to build apk file.
