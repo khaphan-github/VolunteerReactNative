@@ -1,6 +1,18 @@
 ## Việc Tử Tế - Mobile Application - Multi-platform
 ### Introdution:
-In Ho Chi Minh City there are many Organizations
+
+The Volunteer App is a place for those who want to volunteer but don't
+know where help is needed. This is a forum where people can easily find
+Find places near you that need help (locate where you are and display the
+where you need help is closest), easily see what you need to do (owner
+The article will attach the work to be done in the article). - When joining the app,
+you can talk to other participants about that post (comment on post
+write, share articles on my personal page) to help get more friends with interests
+like to volunteer.
+
+In addition, the app also has a fundraising feature in conjunction with Bank (organizations and individuals who are in need of financial support can post for help with the desired amount of support). If you do not have an Bank account, you can easily register to open an account on your personal page. Everyone can donate as much as they can, no limit on the amount
+required (maybe a few thousand dong). In the article will show the amount received, and the amount missing to end the article. When you receive enough money to support the article, the support function will automatically be hidden.
+
 ### Architecture:
 ![image](https://user-images.githubusercontent.com/76431966/216554058-99bcf797-5505-4269-9c89-f2dafa8c2834.png)
 ### Technology to use:
